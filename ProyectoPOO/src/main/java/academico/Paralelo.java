@@ -13,6 +13,7 @@ public class Paralelo {
         this.materia = materia;
         this.numero = numero;
         this.url = url;
+        estudiantes = new ArrayList();
     }
 
     public void setMateria(Materia materia) {
@@ -56,5 +57,30 @@ public class Paralelo {
         return url;
     }
     
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+
+        if (obj.getClass() != this.getClass()) {
+            return false;
+        }
+
+        final Paralelo otro = (Paralelo) obj;
+        if (this.numero != otro.getNumero() ) {
+            return false;
+        }
+
+        if (this.materia != otro.getMateria()) {
+            return false;
+        }
+
+        return true;
+    }
     
+    @Override
+    public String toString(){
+        return materia.getNombre() + ": " + numero;
+    }
 }

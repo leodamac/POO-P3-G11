@@ -1,5 +1,9 @@
 package com.mycompany.proyectopoo;
 
+import academico.TerminoAcademico;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Scanner;
 import juego.Pregunta;
 
 
@@ -169,5 +173,57 @@ public class Menu {
     //Le añade un marco a la pregunta con sus 4 respuestas.
     public static void mostrarPregunta(Pregunta pregunta){
         System.out.println(Menu.agregarMarco('*', pregunta));
+    }
+    
+    public static TerminoAcademico seleccionarTerminoAcademico(ArrayList<TerminoAcademico> terminosAcademicos, Scanner sc){
+        Collections.sort(terminosAcademicos);//se ordenan los terminos academicos de menor a mayor
+        TerminoAcademico terminoAcademico = (TerminoAcademico)seleccionarObjeto(terminosAcademicos, sc);
+        return terminoAcademico;
+    }
+    
+    public static Object seleccionarObjeto(ArrayList objetos, Scanner sc){
+        int indice = 0;
+        for(Object o: objetos){
+            System.out.println(indice+1 + ". " + o);
+            indice++;
+        }
+        boolean salir = false;
+        Object objeto = null;
+        while(!salir){           
+            int op = pideNumero(sc);//pide el numero del usuario
+            // se pone como null para preguntar mas adelante si el usuario puso un numero valido de objeto
+
+            if(op-1<indice && op-1>=0){
+                objeto = objetos.get(op-1);
+                salir = true;
+            }
+            if (objeto == null){
+                System.out.println("Indice incorrecto");
+            }
+        }      
+        return objeto;
+    }
+    //verifica que una cadena de texto sea un numero entero
+    public static boolean isNumero(String cadena){
+        if (cadena == null)
+            return false;
+        return cadena.matches("-?\\d+");
+    }
+    
+    //convierte una cadena de texto en entero
+    public static int convierteTxtAEntero(String texto){
+        return Integer.parseInt(texto);
+    }
+    
+    //pide un numero en str y lo convierte en int
+    public static int pideNumero(Scanner sc){
+        String numero;
+        do{
+           System.out.println("NOTA ingrese solo numeros");
+           System.out.print("Ingrese el NUMERO: ");
+           numero = sc.nextLine();
+        }while(!isNumero(numero));
+        
+        return convierteTxtAEntero(numero);
     }
 }

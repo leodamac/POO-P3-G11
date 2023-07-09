@@ -1,14 +1,21 @@
 package academico;
-
+import academico.Materia;
+import java.util.ArrayList;
 
 public class TerminoAcademico implements Comparable <TerminoAcademico>{
 
     private int año;
     private int termino;
+    private ArrayList<Materia> materias;
 
     public TerminoAcademico(int año, int termino){
         this.año = año;
         this.termino = termino;
+        materias = new ArrayList();
+    }
+    
+    public void addMateria(Materia materia){
+        materias.add(materia);
     }
 
     public int getAño() {
@@ -21,6 +28,10 @@ public class TerminoAcademico implements Comparable <TerminoAcademico>{
 
     public int getTermino() {
         return termino;
+    }
+    
+    public ArrayList<Materia> getMaterias(){
+        return materias;
     }
 
     public void setTermino(int termino) {
