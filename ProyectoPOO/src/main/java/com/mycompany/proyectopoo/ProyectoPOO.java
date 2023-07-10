@@ -12,52 +12,20 @@ import personas.Estudiante;
 public class ProyectoPOO {
 
     public static void main(String[] args) {
-        ArrayList<Pregunta> preguntasJuego = null;
-        int i;
-        ArrayList<Pregunta> preguntas = new ArrayList<>();
-        ArrayList estudiantes = null;
-        
-        // La primera pregunta añadida es la correcta
-        preguntas.add(new Pregunta("¿Pregnta 1?", "1","2",  "3", "4", 1));
-        preguntas.add(new Pregunta("¿Pregunta 2?", "1", "2", "3", "4", 2));
-        preguntas.add(new Pregunta("¿Pregunta 3?","1", "2", "3", "4", 3));
-        preguntas.add(new Pregunta("¿Pregunta 4?","1", "2", "3", "4", 4));
-        preguntas.add(new Pregunta("¿Pregunta 5?","1", "2", "3", "4", 5));
-        preguntas.add(new Pregunta("¿Pregunta 6?","1", "2", "3", "4", 6));
-        preguntas.add(new Pregunta("¿Pregunta 7?","1", "2", "3", "4", 7));
-        preguntas.add(new Pregunta("¿Pregunta 8?","1", "2", "3", "4", 8));
-        preguntas.add(new Pregunta("¿Pregunta 9?","1", "2", "3", "4", 9));
-        preguntas.add(new Pregunta("¿Pregunta 10?","1", "2", "3", "4", 10));
-        preguntas.add(new Pregunta("¿Pregunta 11?","1", "2", "3", "4", 11));
-        preguntas.add(new Pregunta("¿Pregunta 12?","1", "2", "3", "4", 12));
-        preguntas.add(new Pregunta("¿Pregunta 13?","1", "2", "3", "4", 13));
-        preguntas.add(new Pregunta("¿Pregunta 14?","1", "2", "3", "4", 14));
-        preguntas.add(new Pregunta("¿Pregunta 15?","1", "2", "3", "4", 15));
-        
-
+        int i;// Se inicializa para ser usado como indice ejemplo 1. Asdfsdf, 2. Basdasd, donde i representaria 1 y 2
         Scanner sc = new Scanner(System.in); //Se inicializa scanner para pedirle datos al usuario
         String mensaje = "";//Se inicializa la variable para mostrarle mensajes al usuario
         TerminoAcademico terminoAcademico = null; // se inicializa un termino academico nulo para ser usado como termino academico por defecto y no crear varios termino
-        Materia materia = null;
-        
+        Paralelo paralelo = null;//El paralelo que va a ser usado
         
         TerminoAcademico terminoAcademico1 = new TerminoAcademico(2023, 1);
+        Menu.cargarDatosIniciales(terminoAcademico1);
         ArrayList<TerminoAcademico> terminosAcademicos = new ArrayList();
-        System.out.println(terminoAcademico1);
-        materia = new Materia("CCPG1043", "Programación Orientada a Objetos");
-        Paralelo paralelo = new Paralelo(materia, 3, "url");
-        Estudiante[] listaDeEstudiantes = {new Estudiante("Estudiante 1", "0001"), new Estudiante("Estudiante 2", "0002")};
-        paralelo.addEstudiantes(listaDeEstudiantes);//Agrega los estudiantes al paralelo
-        
-        materia.addParalelo(paralelo);//Agrega el paralelo a la materia
-        materia.addPreguntas(preguntas);//Agrega las preguntas a la materia
-        terminoAcademico1.addMateria(materia);//Agrega la materia al termino Academico
+  
         terminosAcademicos.add(terminoAcademico1);//Agrega el termino Academico a la lista de terminos academicos
 
         System.out.println("Hello World!");
-        for(TerminoAcademico t: terminosAcademicos){
-            System.out.println(t.getMaterias());
-        }
+
         ////////////////////////////////////////////////////////
         
 
@@ -141,9 +109,8 @@ public class ProyectoPOO {
                                         case "3":
                                             // 3.- Configurar término para el juego
                                             terminoAcademico = Menu.seleccionarTerminoAcademico(terminosAcademicos, sc);
-                                            Materia m = (Materia)(Menu.seleccionarObjeto(terminoAcademico.getMaterias(), sc));
-                                            preguntasJuego = m.getPreguntas();
-                                            paralelo = (Paralelo)(Menu.seleccionarObjeto(m.getParalelos(), sc));
+                                            Materia materia = (Materia)(Menu.seleccionarObjeto(terminoAcademico.getMaterias(), sc));
+                                            paralelo = (Paralelo)(Menu.seleccionarObjeto(materia.getParalelos(), sc));
                                             
                                             System.out.println("Opcion numero " + opcion);
                                             break;
@@ -207,34 +174,23 @@ public class ProyectoPOO {
                                     System.out.print("Ingrese su opción: ");
                                     opcion = sc.nextLine();//pregunta la opcion al usuario
                                     System.out.println("");
+                                    System.out.print("Escriba el digito del Termino Academico ");
+                                    //pregunta el termino academico al usuario
+                                    
                                     switch(opcion){
                                         case "1":
-                                            i = 1;
-                                            for (Pregunta p: preguntas){
-                                                System.out.print("Presione ENTER para ver la pregunta nº" + i);
-                                                sc.nextLine();
-                                                System.out.println(p);
-                                                
-                                                i++;
-                                            }
+                                            terminoAcademico = Menu.seleccionarTerminoAcademico(terminosAcademicos, sc);
+                                            System.out.print("Escriba el digito de la Materia ");
+                                            //El usuario selecciona la materia para visualizar, editar o eliminar las preguntas
+                                            // Muestra las preguntas de la materia selccionada
+                                            Menu.visualizarPreguntas(((Materia)(Menu.seleccionarObjeto(terminoAcademico.getMaterias(), sc))).getPreguntas(), sc);
                                             break;
                                         case "2":
-                                            System.out.println("Ingrese el enunciado de la pregunta: ");
-                                            String enunciado = sc.nextLine();
-                                            String[] respuestas = new String[4];
-                                            for(i=0; i<4;i++){
-                                                if(i==0){
-                                                    System.out.println("Ingrese la RESPUESTA CORRECTA: ");
-                                                }
-                                                else{
-                                                    System.out.println("Ingrese la RESPUESTA INCORRECTA: ");}
-                                                respuestas[i] = sc.nextLine();
-                                            }
-                                            System.out.println("Ingrese el NIVEL de la pregunta: ");
-                                            int nivel = Menu.pideNumero(sc);
-                                            preguntas.add(new Pregunta(enunciado, respuestas, nivel));
-                                            System.out.println("¡PREGUNTA AÑADIDA CON EXITO!");
-                                            sc.nextLine();
+                                            terminoAcademico = Menu.seleccionarTerminoAcademico(terminosAcademicos, sc);
+                                            System.out.print("Escriba el digito de la Materia ");
+                                            //El usuario selecciona la materia para visualizar, editar o eliminar las preguntas
+                                            // Agrega la pregunta ingresada por el usuario
+                                            Menu.agregarPregunta(((Materia)(Menu.seleccionarObjeto(terminoAcademico.getMaterias(), sc))).getPreguntas(), sc);
                                             break;
                                         case "3":
                                             System.out.println("Opcion numero " + opcion);
@@ -267,11 +223,11 @@ public class ProyectoPOO {
                 case "2":
                     // Nuevo juego
                     
-                    if (preguntasJuego == null){
+                    if (paralelo == null){
                         System.out.println("No ha elegido la Materia ni el término Académico");
                     } else{
                         Estudiante estudiante = (Estudiante) (Menu.seleccionarObjeto(paralelo.getEstudiantes(), sc));
-                        QuienQuiereSerMillonario juego = new QuienQuiereSerMillonario(preguntasJuego, estudiante);
+                        QuienQuiereSerMillonario juego = new QuienQuiereSerMillonario(paralelo.getMateria().getPreguntas(), estudiante);
                         juego.iniciarJuego(sc);
                     }
                     break;

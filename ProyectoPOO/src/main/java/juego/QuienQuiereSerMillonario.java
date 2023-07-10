@@ -4,14 +4,16 @@ import com.mycompany.proyectopoo.Menu;
 import java.util.ArrayList;
 import java.util.Scanner;
 import personas.Estudiante;
+import java.util.Random;
+
 
 public class QuienQuiereSerMillonario  {
-    private ArrayList<Pregunta> preguntas;
+    private ArrayList<ArrayList<Pregunta>> preguntas;
     private int indicePreguntas;
     private int ganancias;
     private Estudiante estudiante;
 
-    public QuienQuiereSerMillonario (ArrayList<Pregunta> preguntas, Estudiante estudiante) {
+    public QuienQuiereSerMillonario (ArrayList<ArrayList<Pregunta>> preguntas, Estudiante estudiante) {
         this.preguntas = preguntas;
         this.indicePreguntas = 0;
         this.ganancias = 0;
@@ -26,8 +28,13 @@ public class QuienQuiereSerMillonario  {
 
 
         while (indicePreguntas < preguntas.size()) {
-            
-            Pregunta preguntaActual = preguntas.get(indicePreguntas);
+            ArrayList preguntasNivel = preguntas.get(indicePreguntas);
+            Random rand = new Random();
+
+            // Obtiene un numero aleatorio 0 - size(Preguntas.nivel)
+            int n = rand.nextInt(preguntasNivel.size());
+
+            Pregunta preguntaActual = (Pregunta)(preguntasNivel.get(n));
             System.out.println("Pregunta #" + (indicePreguntas + 1) + ": ");
 
             String[] respuestas = preguntaActual.getRespuestas();
