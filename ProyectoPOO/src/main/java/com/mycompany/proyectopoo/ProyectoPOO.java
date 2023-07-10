@@ -270,9 +270,9 @@ public class ProyectoPOO {
                     if (preguntasJuego == null){
                         System.out.println("No ha elegido la Materia ni el término Académico");
                     } else{
-                        Menu.seleccionarObjeto(paralelo.getEstudiantes(), sc);
-                        QuienQuiereSerMillonario juego = new QuienQuiereSerMillonario(preguntasJuego);
-                        juego.iniciarJuego();
+                        Estudiante estudiante = (Estudiante) (Menu.seleccionarObjeto(paralelo.getEstudiantes(), sc));
+                        QuienQuiereSerMillonario juego = new QuienQuiereSerMillonario(preguntasJuego, estudiante);
+                        juego.iniciarJuego(sc);
                     }
                     break;
                 case "3":

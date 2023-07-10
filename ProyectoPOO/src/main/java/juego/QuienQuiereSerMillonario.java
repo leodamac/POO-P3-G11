@@ -3,25 +3,27 @@ package juego;
 import com.mycompany.proyectopoo.Menu;
 import java.util.ArrayList;
 import java.util.Scanner;
+import personas.Estudiante;
 
 public class QuienQuiereSerMillonario  {
     private ArrayList<Pregunta> preguntas;
     private int indicePreguntas;
     private int ganancias;
+    private Estudiante estudiante;
 
-    public QuienQuiereSerMillonario (ArrayList<Pregunta> preguntas) {
+    public QuienQuiereSerMillonario (ArrayList<Pregunta> preguntas, Estudiante estudiante) {
         this.preguntas = preguntas;
         this.indicePreguntas = 0;
         this.ganancias = 0;
+        this.estudiante = estudiante;
     }
 
-    public void iniciarJuego() {
+    public void iniciarJuego(Scanner scanner) {
         System.out.println("¡Bienvenido a ¿Quién quiere ser millonario?!");
         System.out.println("Responderás una serie de preguntas.");
         System.out.println("Listo para empezar...");
         System.out.println();
 
-        Scanner scanner = new Scanner(System.in);
 
         while (indicePreguntas < preguntas.size()) {
             
