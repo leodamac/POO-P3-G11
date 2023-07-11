@@ -7,32 +7,42 @@ import juego.Pregunta;
 public class Materia {
     private String codigo;
     private String nombre;
-    private int level;
     private ArrayList<Paralelo> paralelos;
-    private ArrayList<Pregunta> preguntas;
-   
-    public Materia(String codigo, String nombre, int level) {
+    private ArrayList<ArrayList> preguntas;
+
+    public Materia(String codigo, String nombre, int niveles) {
         this.codigo = codigo;
         this.nombre = nombre;
-        this.level = level;
         paralelos = new ArrayList();
         preguntas = new ArrayList();
+        this.crearNivelesPreguntas(niveles);
     }  
+    
+    public void crearNivelesPreguntas(int niveles){
+        boolean salir = false;
+        int indice = 0;
+        while(!salir){
+            preguntas.add(new ArrayList<Pregunta>());
+            indice++;
+            if(indice>=15){
+                salir = true;
+            }
+            
+        }
+    }
     
     public void addParalelo(Paralelo paralelo){
         paralelos.add(paralelo);
     }
     
-    public void addPreguntas(Pregunta[] ListaPreguntas){
-        preguntas.addAll( Arrays.asList(ListaPreguntas)); 
-    }
-    
-    public void addPreguntas(ArrayList ListaPreguntas){
-        preguntas.addAll( ListaPreguntas);
+    public void addPreguntas(ArrayList<Pregunta> preguntas){
+        for(Pregunta pregunta: preguntas){
+            (this.preguntas.get(pregunta.getNivel() - 1)).add(pregunta);
+        }
     }
     
     public void addPregunta(Pregunta pregunta){
-        preguntas.add(pregunta);
+        preguntas.get(pregunta.getNivel() - 1).add(pregunta);
     }
     
     public String getCodigo() {
@@ -58,9 +68,7 @@ public class Materia {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    public void setLevel(int level) {
-        this.level = level;
-    }
+    
     @Override
     public String toString(){
         return nombre;

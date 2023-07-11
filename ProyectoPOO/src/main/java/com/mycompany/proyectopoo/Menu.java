@@ -1,10 +1,13 @@
 package com.mycompany.proyectopoo;
 
+import academico.Materia;
+import academico.Paralelo;
 import academico.TerminoAcademico;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 import juego.Pregunta;
+import personas.Estudiante;
 
 
 public class Menu {
@@ -182,23 +185,27 @@ public class Menu {
     }
     
     public static Object seleccionarObjeto(ArrayList objetos, Scanner sc){
-        int indice = 0;
-        for(Object o: objetos){
-            System.out.println(indice+1 + ". " + o);
-            indice++;
-        }
-        boolean salir = false;
         Object objeto = null;
-        while(!salir){           
-            int op = pideNumero(sc);//pide el numero del usuario
-            // se pone como null para preguntar mas adelante si el usuario puso un numero valido de objeto
-
-            if(op-1<indice && op-1>=0){
-                objeto = objetos.get(op-1);
-                salir = true;
+        int indice = 0;
+        
+        if (objetos.size()>0){
+            for(Object o: objetos){
+                System.out.println(indice+1 + ". " + o);
+                indice++;
             }
-            if (objeto == null){
-                System.out.println("Indice incorrecto");
+            boolean salir = false;
+
+            while(!salir){           
+                int op = pideNumero(sc);//pide el numero del usuario
+                // se pone como null para preguntar mas adelante si el usuario puso un numero valido de objeto
+
+                if(op-1<indice && op-1>=0){
+                    objeto = objetos.get(op-1);
+                    salir = true;
+                }
+                if (objeto == null){
+                    System.out.println("Indice incorrecto");
+                }
             }
         }      
         return objeto;
@@ -225,5 +232,133 @@ public class Menu {
         }while(!isNumero(numero));
         
         return convierteTxtAEntero(numero);
+    }
+    
+        public static void cargarDatosIniciales(TerminoAcademico terminoAcademico){
+        Materia materia = new Materia("CCPG1043", "Programación Orientada a Objetos", 15);
+        materia.addParalelo(new Paralelo(materia, 3, "url"));
+        cargarEstudiantes(materia.getParalelos().get(0));
+        cargarPreguntas(materia);
+        
+        terminoAcademico.addMateria(materia);
+   
+        
+    }
+    
+    public static void cargarEstudiantes(Paralelo paralelo){
+        ArrayList estudiantes = new ArrayList();
+        String estudiantesTexto = """
+                                  202110136\tACELDO TORRES MARIA GRAZIA\tmaactorr@espol.edu.ec
+                                  202108643\tAGUILAR TINOCO JEAN CARLOS\tjcaguila@espol.edu.ec
+                                  202111928\tAMORETTI SANCHEZ JUAN CARLOS\tjamorett@espol.edu.ec
+                                  202105946\tANDRADE VELASCO ANGELLO BERNIE\tangbeand@espol.edu.ec
+                                  202211355\tARAUJO ORTEGA DIEGO ENZO JAVIER\tdienarau@espol.edu.ec
+                                  202104816\tAZU PERLAZA NICOLE FERNANDA\tnfazu@espol.edu.ec
+                                  202110219\tBALDEON BAQUE IVAN GONZALO\tivagbald@espol.edu.ec
+                                  202113056\tBARBERAN GALLARDO MELISSA ESTEFANIA\tmelesbar@espol.edu.ec
+                                  202109328\tBASILIO ACEBO DANIELA MILENA\tdmbasili@espol.edu.ec
+                                  202210712\tBORBOR GUTIERREZ VICTOR DANIEL\tvicbguti@espol.edu.ec
+                                  202006086\tCABRERA VIVANCO ALVARO DAVID\talvdcabr@espol.edu.ec
+                                  202113049\tCORDERO CALLES RONALD ELIAS\trcordero@espol.edu.ec
+                                  202010278\tESPINOZA PINELA ANGELO ALEXANDER\tangepine@espol.edu.ec
+                                  202108288\tGONZABAY ESPIN DOUGLAS VICENTE\tdvgonzab@espol.edu.ec
+                                  202100772\tGUAMAN QUIJIJE RONALD STEVEN\trsguaman@espol.edu.ec
+                                  202208302\tHERRERA LEON ANTHONY ARTURO\tanthleon@espol.edu.ec
+                                  202202552\tLINO INDACOCHEA STEVEN MOISES\tstemlino@espol.edu.ec
+                                  202212965\tLORENZO LOPEZ ERICK GABRIEL\terillope@espol.edu.ec
+                                  201405946\tMACIAS ARTURO LEONARDO DAVID\tleodamac@espol.edu.ec
+                                  202001244\tMAZA PUNINE ISSAC ALEXANDER\tissamaza@espol.edu.ec
+                                  202208880\tMEJIA PARRA KEVIN SANTIAGO\tkesameji@espol.edu.ec
+                                  202211306\tNAVARRETE CASTILLO ANTHONY JOSUE\tannacast@espol.edu.ec
+                                  202207726\tPOVEDA QUIMIZ MICHAEL CRESCENCIO\tmcpoveda@espol.edu.ec
+                                  202207924\tRIVAS ABAD BRAULIO DE JESUS\tbrarabad@espol.edu.ec
+                                  202111589\tRIVAS PINCAY EMMANUEL GERARDO\tegrivas@espol.edu.ec
+                                  202203428\tROMERO ALMEIDA EMILIO JOSE\temjorome@espol.edu.ec
+                                  202111910\tSANTANDER LOPEZ EDU ISRAEL\teduisant@espol.edu.ec
+                                  201417520\tSUAREZ MENDIETA GARY STEVEN\tgssuarez@espol.edu.ec
+                                  202205324\tSUAREZ VALDIVIESO JOSE JULIO\tjojusuar@espol.edu.ec
+                                  202107645\tVARGAS ISA GENESIS DAYANNA\tgdvargas@espol.edu.ec
+                                  202109229\tVILLAMAGUA ESCUDERO JUAN MATEO\tjuamvill@espol.edu.ec
+                                  202106050\tZAMORA CEDE\u00d1O JORDY STEVEN\tjszamora@espol.edu.ec
+                                  202208260\tZARUMA GAME JOSHUA ANDRES\tjazaruma@espol.edu.ec""";
+        for(String estudiante: estudiantesTexto.split("\n")){
+            String[] datos = estudiante.split("\t");
+
+            estudiantes.add(new Estudiante(datos[1], datos[0], datos[2]));
+        }
+        
+        paralelo.addEstudiantes(estudiantes);
+            
+    }
+    
+    public static void cargarPreguntas(Materia materia){
+        ArrayList<Pregunta> preguntas = new ArrayList<>();
+        // La primera pregunta añadida es la correcta
+        preguntas.add(new Pregunta("¿Pregnta 1?", "1","2",  "3", "4", 1));
+        preguntas.add(new Pregunta("¿Pregunta 2?", "1", "2", "3", "4", 2));
+        preguntas.add(new Pregunta("¿Pregunta 3?","1", "2", "3", "4", 3));
+        preguntas.add(new Pregunta("¿Pregunta 4?","1", "2", "3", "4", 4));
+        preguntas.add(new Pregunta("¿Pregunta 5?","1", "2", "3", "4", 5));
+        preguntas.add(new Pregunta("¿Pregunta 6?","1", "2", "3", "4", 6));
+        preguntas.add(new Pregunta("¿Pregunta 7?","1", "2", "3", "4", 7));
+        preguntas.add(new Pregunta("¿Pregunta 8?","1", "2", "3", "4", 8));
+        preguntas.add(new Pregunta("¿Pregunta 9?","1", "2", "3", "4", 9));
+        preguntas.add(new Pregunta("¿Pregunta 10?","1", "2", "3", "4", 10));
+        preguntas.add(new Pregunta("¿Pregunta 11?","1", "2", "3", "4", 11));
+        preguntas.add(new Pregunta("¿Pregunta 12?","1", "2", "3", "4", 12));
+        preguntas.add(new Pregunta("¿Pregunta 13?","1", "2", "3", "4", 13));
+        preguntas.add(new Pregunta("¿Pregunta 14?","1", "2", "3", "4", 14));
+        preguntas.add(new Pregunta("¿Pregunta 15?","1", "2", "3", "4", 15));
+        
+        materia.addPreguntas(preguntas);
+    }
+    
+    public static void visualizarPreguntas(ArrayList<ArrayList<Pregunta>>preguntas, Scanner sc){
+        int i = 0;
+        int indice = 0;
+        // EL while se ejecutara mientras el indice sea menor a la cantidad de niveles de las preguntas
+        while(indice<preguntas.size()){
+            for (Pregunta p: preguntas.get(indice)){
+                i++;
+                System.out.print("Presione ENTER para ver la pregunta nº" + i);
+                sc.nextLine();
+                // Muestra la pregunta
+                System.out.println(p);
+            }
+            indice++;
+        }
+    }
+    
+    public static void agregarPregunta(ArrayList<ArrayList<Pregunta>>preguntas, Scanner sc){
+        System.out.println("Ingrese el enunciado de la pregunta: ");
+        String enunciado = sc.nextLine();
+        String[] respuestas = new String[4];
+        for(int i=0; i<4;i++){
+            // Pide ingresar la respuesta correcta
+            if(i==0){
+                System.out.println("Ingrese la RESPUESTA CORRECTA: ");
+            }
+            // Pide ingresar las respuestas que no son correctas
+            else{
+                System.out.println("Ingrese la RESPUESTA INCORRECTA: ");}
+            respuestas[i] = sc.nextLine();
+        }
+        System.out.println("Ingrese el NIVEL de la pregunta: ");
+        int nivel = Menu.pideNumero(sc);
+        // Añade la nueva pregunta en la lista de preguntas segun el nivel
+        preguntas.get(nivel-1).add(new Pregunta(enunciado, respuestas, nivel));
+        System.out.println("¡PREGUNTA AÑADIDA CON EXITO!");
+        sc.nextLine();
+    }
+    
+    public static int pideAño(int YEAR, Scanner sc){
+        int year = 0;
+        do{
+            year = Menu.pideNumero(sc);
+            if(year<YEAR){
+                System.out.print("Ingrese el AÑO mayor o igual al año ACTUAL 2023");
+            }
+        }while(year< YEAR);
+        return year;
     }
 }

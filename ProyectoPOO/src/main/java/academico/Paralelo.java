@@ -81,6 +81,6 @@ public class Paralelo {
     
     @Override
     public String toString(){
-        return materia.getNombre() + ": " + numero;
+        return "Par." + numero + ": " + materia.getNombre();
     }
 }

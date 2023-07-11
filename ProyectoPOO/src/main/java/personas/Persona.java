@@ -27,7 +27,7 @@ public class Persona {
             return false;
         }
 
-        if (obj.getClass() != this.getClass()) {
+        if (!(obj instanceof Persona)) {
             return false;
         }
 
