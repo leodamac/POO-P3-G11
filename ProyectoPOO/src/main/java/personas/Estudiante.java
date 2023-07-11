@@ -12,13 +12,6 @@ public class Estudiante extends Persona{
         this.ganancias = 0;
     }
     
-    public Estudiante(String nombre, String matricula){
-        super(nombre);
-        this.matricula = matricula;
-        this.correo = "";
-        this.ganancias = 0;
-    }
-    
     public void setCorreo(String correo){
         this.correo = correo;
     }

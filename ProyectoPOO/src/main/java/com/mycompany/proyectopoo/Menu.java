@@ -185,23 +185,27 @@ public class Menu {
     }
     
     public static Object seleccionarObjeto(ArrayList objetos, Scanner sc){
-        int indice = 0;
-        for(Object o: objetos){
-            System.out.println(indice+1 + ". " + o);
-            indice++;
-        }
-        boolean salir = false;
         Object objeto = null;
-        while(!salir){           
-            int op = pideNumero(sc);//pide el numero del usuario
-            // se pone como null para preguntar mas adelante si el usuario puso un numero valido de objeto
-
-            if(op-1<indice && op-1>=0){
-                objeto = objetos.get(op-1);
-                salir = true;
+        int indice = 0;
+        
+        if (objetos.size()>0){
+            for(Object o: objetos){
+                System.out.println(indice+1 + ". " + o);
+                indice++;
             }
-            if (objeto == null){
-                System.out.println("Indice incorrecto");
+            boolean salir = false;
+
+            while(!salir){           
+                int op = pideNumero(sc);//pide el numero del usuario
+                // se pone como null para preguntar mas adelante si el usuario puso un numero valido de objeto
+
+                if(op-1<indice && op-1>=0){
+                    objeto = objetos.get(op-1);
+                    salir = true;
+                }
+                if (objeto == null){
+                    System.out.println("Indice incorrecto");
+                }
             }
         }      
         return objeto;
@@ -279,7 +283,7 @@ public class Menu {
                                   202208260\tZARUMA GAME JOSHUA ANDRES\tjazaruma@espol.edu.ec""";
         for(String estudiante: estudiantesTexto.split("\n")){
             String[] datos = estudiante.split("\t");
-            System.out.println(estudiante);
+
             estudiantes.add(new Estudiante(datos[1], datos[0], datos[2]));
         }
         
@@ -345,5 +349,16 @@ public class Menu {
         preguntas.get(nivel-1).add(new Pregunta(enunciado, respuestas, nivel));
         System.out.println("¡PREGUNTA AÑADIDA CON EXITO!");
         sc.nextLine();
+    }
+    
+    public static int pideAño(int YEAR, Scanner sc){
+        int year = 0;
+        do{
+            year = Menu.pideNumero(sc);
+            if(year<YEAR){
+                System.out.print("Ingrese el AÑO mayor o igual al año ACTUAL 2023");
+            }
+        }while(year< YEAR);
+        return year;
     }
 }

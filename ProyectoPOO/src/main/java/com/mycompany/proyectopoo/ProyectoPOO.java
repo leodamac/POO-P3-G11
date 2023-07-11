@@ -10,8 +10,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import personas.Estudiante;
 public class ProyectoPOO {
-
+    static int YEAR;
+    
     public static void main(String[] args) {
+        YEAR = 2023;
         int i;// Se inicializa para ser usado como indice ejemplo 1. Asdfsdf, 2. Basdasd, donde i representaria 1 y 2
         Scanner sc = new Scanner(System.in); //Se inicializa scanner para pedirle datos al usuario
         String mensaje = "";//Se inicializa la variable para mostrarle mensajes al usuario
@@ -23,8 +25,6 @@ public class ProyectoPOO {
         ArrayList<TerminoAcademico> terminosAcademicos = new ArrayList();
   
         terminosAcademicos.add(terminoAcademico1);//Agrega el termino Academico a la lista de terminos academicos
-
-        System.out.println("Hello World!");
 
         ////////////////////////////////////////////////////////
         
@@ -65,9 +65,11 @@ public class ProyectoPOO {
                                             // 1.- Ingresar término
                                             System.out.println("Opcion numero " + opcion + " Ingresar Termino");
                                             
-                                            System.out.print("Ingrese el año del termino: ");
-                                            int año = Menu.pideNumero(sc);
+                                            //Le pide el año al usuario
+                                            System.out.print("Ingrese el AÑO del termino: ");
+                                            int año = Menu.pideAño(YEAR, sc);
                                             
+                                            //Le pide el termino al usuario
                                             System.out.print("Ingrese el numero del termino: ");
                                             int termino = Menu.pideNumero(sc);
                                             
@@ -86,7 +88,7 @@ public class ProyectoPOO {
                                             // 2.- Editar término
                                             terminoAcademico = Menu.seleccionarTerminoAcademico(terminosAcademicos, sc);//Selecciona un termino academico de la lista de terminos academicos                             
                                             System.out.print("Ingrese el AÑO del termino: ");
-                                            año = Menu.pideNumero(sc);
+                                            año = Menu.pideAño(YEAR, sc);
                                             System.out.print("Ingrese el NUMERO del termino: ");
                                             termino = Menu.pideNumero(sc);
 
@@ -102,17 +104,22 @@ public class ProyectoPOO {
                                             
                                             System.out.println(terminoAcademico);
                                             System.out.print("Presione ENTER para continuar\n");
-                                            
-                                            
                                             sc.nextLine();
                                             break;
                                         case "3":
                                             // 3.- Configurar término para el juego
                                             terminoAcademico = Menu.seleccionarTerminoAcademico(terminosAcademicos, sc);
                                             Materia materia = (Materia)(Menu.seleccionarObjeto(terminoAcademico.getMaterias(), sc));
-                                            paralelo = (Paralelo)(Menu.seleccionarObjeto(materia.getParalelos(), sc));
+                                            if (materia != null){
+                                                paralelo = (Paralelo)(Menu.seleccionarObjeto(materia.getParalelos(), sc));
+                                                mensaje = "Se ha seleccionado con exito el Paralelo y Materia";
+                                            }else{
+                                                mensaje = "No hay paralelos o materias registrados en ese Termino Academico";
+                                            }
                                             
-                                            System.out.println("Opcion numero " + opcion);
+                                            System.out.println(mensaje);
+                                            System.out.print("Presione ENTER para continuar\n");
+                                            sc.nextLine();
                                             break;
                                         case "4":
                                             System.out.println("Opcion numero " + opcion);
