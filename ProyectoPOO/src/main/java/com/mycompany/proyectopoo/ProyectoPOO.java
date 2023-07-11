@@ -167,13 +167,22 @@ public class ProyectoPOO {
                             // Opcion 1.2 Administrar materias y paralelos
                                 do{
                                     System.out.println("Materias y paralelos registrados:");
-                                    System.out.println("POO: 1 , 2 , 3\nMecanica Vectorial: 2,5,6");
+                                    for(TerminoAcademico t: terminosAcademicos){
+                                        if (t.equals(terminoAcademico)){
+                                            int indice = 0;
+                                            for(Object o: t.getMaterias()){ //Listado de materias 
+                                                System.out.println(indice+1 + ". " + o);
+                                                indice++;
+                                                }
+                                        } //INICIA el programa con el termino selecionado en paso 1.1.3 configurar para el juego.
+                                    }
+                                    
                                     Menu.mostrarmenuAdministrarMateriasParalelos();//muestra el menu
                                     System.out.print("Ingrese su opción: ");
                                     opcion = sc.nextLine();//pregunta la opcion al usuario
                                     System.out.println("");
                                     switch(opcion){
-                                        case "1":
+                                        case "1": //Ingresar materia
                                             System.out.println("Opcion numero " + opcion);
                                             System.out.println("Ingrese el codigo de la materia en MAYUSCULA:");
                                             String cod = sc.nextLine();
@@ -181,19 +190,31 @@ public class ProyectoPOO {
                                             String mat = sc.nextLine();
                                             System.out.println("Ingrese la cantidad de niveles:");
                                             int levels = Menu.pideNumero(sc);
-                                            materia = new Materia(cod,mat,levels);
-                                            
-                                            //paralelo = new Paralelo(materia, course, "url");
-                                            //materia.addParalelo(paralelo);
-                                            //terminoAcademico1.addMateria(materia);
+                                            materia = new Materia(cod,mat,levels); //se crea la materia
+                                            terminoAcademico.addMateria(materia); // se asigna al termino del paso 1.1.3 configurar para el juego                                          
                                             
                                             break;
-                                        case "2":
-                                            System.out.println("Opcion numero " + opcion);
-                                            break;
+                                        case "2": //Editar Materias
+                                            System.out.println("Seleccione la materia a editar del listado: ");
+                                            Materia m = (Materia)(Menu.seleccionarObjeto(terminoAcademico.getMaterias(), sc));                                            
+                                            System.out.println("Actualizar nombre de materia a: ");
+                                            String name = sc.nextLine(); 
+                                            System.out.println("Actualizar niveles a: ");
+                                            int newlevel = Menu.pideNumero(sc);
+                                            m.setNombre(name);
+                                            m.setLevel(newlevel);
+                                            break; 
+                                            
                                         case "3":
-                                            System.out.println("Opcion numero " + opcion);
+                                            System.out.println("Seleccione la materia:");
+                                            Materia mselec = (Materia)(Menu.seleccionarObjeto(terminoAcademico.getMaterias(), sc));
+                                            System.out.println("Ingrese el paralelo:");
+                                            int course = Menu.pideNumero(sc);
+                                            Paralelo p = new Paralelo(mselec, course, "url");
+                                            mselec.addParalelo(p); 
+                                            
                                             break;
+                                            
                                         case "4":
                                             System.out.println("Opcion numero " + opcion);
                                             break;

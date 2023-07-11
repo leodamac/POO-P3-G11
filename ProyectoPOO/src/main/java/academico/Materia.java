@@ -10,7 +10,7 @@ public class Materia {
     private int level;
     private ArrayList<Paralelo> paralelos;
     private ArrayList<Pregunta> preguntas;
-
+   
     public Materia(String codigo, String nombre, int level) {
         this.codigo = codigo;
         this.nombre = nombre;
@@ -24,7 +24,7 @@ public class Materia {
     }
     
     public void addPreguntas(Pregunta[] ListaPreguntas){
-        preguntas.addAll( Arrays.asList(ListaPreguntas));
+        preguntas.addAll( Arrays.asList(ListaPreguntas)); 
     }
     
     public void addPreguntas(ArrayList ListaPreguntas){
@@ -58,7 +58,9 @@ public class Materia {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    
+    public void setLevel(int level) {
+        this.level = level;
+    }
     @Override
     public String toString(){
         return nombre;
