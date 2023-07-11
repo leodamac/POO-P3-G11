@@ -18,7 +18,7 @@ public class ProyectoPOO {
         ArrayList estudiantes = null;
         
         // La primera pregunta añadida es la correcta
-        preguntas.add(new Pregunta("¿Pregnta 1?", "1","2",  "3", "4", 1));
+        preguntas.add(new Pregunta("¿Pregunta 1?", "1","2",  "3", "4", 1));
         preguntas.add(new Pregunta("¿Pregunta 2?", "1", "2", "3", "4", 2));
         preguntas.add(new Pregunta("¿Pregunta 3?","1", "2", "3", "4", 3));
         preguntas.add(new Pregunta("¿Pregunta 4?","1", "2", "3", "4", 4));
@@ -79,7 +79,7 @@ public class ProyectoPOO {
                         opcion = sc.nextLine();//pregunta la opcion al usuario
                         System.out.println("");
                         switch(opcion){
-                            case "1":
+                            case "1": 
                                 System.out.println("Opcion numero " + opcion);
                             // Opcion 1.1 Administrar Terminos Academicos
                                 do{
