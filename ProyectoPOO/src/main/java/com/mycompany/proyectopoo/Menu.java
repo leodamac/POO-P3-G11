@@ -219,7 +219,7 @@ public class Menu {
     public static int pideNumero(Scanner sc){
         String numero;
         do{
-           System.out.println("NOTA ingrese solo numeros");
+           System.out.println("(NOTA: ingrese solo numeros)");
            System.out.print("Ingrese el NUMERO: ");
            numero = sc.nextLine();
         }while(!isNumero(numero));

@@ -43,8 +43,8 @@ public class ProyectoPOO {
         
         TerminoAcademico terminoAcademico1 = new TerminoAcademico(2023, 1);
         ArrayList<TerminoAcademico> terminosAcademicos = new ArrayList();
-        System.out.println(terminoAcademico1);
-        materia = new Materia("CCPG1043", "Programación Orientada a Objetos");
+        //System.out.println(terminoAcademico1);
+        materia = new Materia("CCPG1043", "Programación Orientada a Objetos", 15);
         Paralelo paralelo = new Paralelo(materia, 3, "url");
         Estudiante[] listaDeEstudiantes = {new Estudiante("Estudiante 1", "0001"), new Estudiante("Estudiante 2", "0002")};
         paralelo.addEstudiantes(listaDeEstudiantes);//Agrega los estudiantes al paralelo
@@ -54,10 +54,8 @@ public class ProyectoPOO {
         terminoAcademico1.addMateria(materia);//Agrega la materia al termino Academico
         terminosAcademicos.add(terminoAcademico1);//Agrega el termino Academico a la lista de terminos academicos
 
-        System.out.println("Hello World!");
-        for(TerminoAcademico t: terminosAcademicos){
-            System.out.println(t.getMaterias());
-        }
+        
+        
         ////////////////////////////////////////////////////////
         
 
@@ -80,9 +78,13 @@ public class ProyectoPOO {
                         System.out.println("");
                         switch(opcion){
                             case "1": 
-                                System.out.println("Opcion numero " + opcion);
+                                
                             // Opcion 1.1 Administrar Terminos Academicos
                                 do{
+                                    System.out.println("Terminos Académicos Registrados:");
+                                    for(TerminoAcademico t: terminosAcademicos){
+                                       System.out.println(t);
+                                    }
                                     Menu.mostrarMenuAdministrarTerminosAcademicos();//muestra el menu
                                     //1.- Ingresar término
                                     //2.- Editar término
@@ -90,14 +92,14 @@ public class ProyectoPOO {
                                     
                                     System.out.print("Ingrese su opción: ");
                                     opcion = sc.nextLine();//pregunta la opcion al usuario
-                                    System.out.println("");
+                                    //System.out.println("");
                                     
                                     switch(opcion){
                                         case "1":
                                             // 1.- Ingresar término
-                                            System.out.println("Opcion numero " + opcion + " Ingresar Termino");
+                                            //System.out.println("Opcion numero " + opcion + " Ingresar Termino");
                                             
-                                            System.out.print("Ingrese el año del termino: ");
+                                            System.out.print("Ingrese el año del termino");
                                             int año = Menu.pideNumero(sc);
                                             
                                             System.out.print("Ingrese el numero del termino: ");
@@ -161,9 +163,11 @@ public class ProyectoPOO {
                                 salir = false;
                                 break;
                             case "2":
-                                System.out.println("Opcion numero " + opcion);
+                                
                             // Opcion 1.2 Administrar materias y paralelos
                                 do{
+                                    System.out.println("Materias y paralelos registrados:");
+                                    System.out.println("POO: 1 , 2 , 3\nMecanica Vectorial: 2,5,6");
                                     Menu.mostrarmenuAdministrarMateriasParalelos();//muestra el menu
                                     System.out.print("Ingrese su opción: ");
                                     opcion = sc.nextLine();//pregunta la opcion al usuario
@@ -171,6 +175,18 @@ public class ProyectoPOO {
                                     switch(opcion){
                                         case "1":
                                             System.out.println("Opcion numero " + opcion);
+                                            System.out.println("Ingrese el codigo de la materia en MAYUSCULA:");
+                                            String cod = sc.nextLine();
+                                            System.out.println("Ingrese el nombre:");
+                                            String mat = sc.nextLine();
+                                            System.out.println("Ingrese la cantidad de niveles:");
+                                            int levels = Menu.pideNumero(sc);
+                                            materia = new Materia(cod,mat,levels);
+                                            
+                                            //paralelo = new Paralelo(materia, course, "url");
+                                            //materia.addParalelo(paralelo);
+                                            //terminoAcademico1.addMateria(materia);
+                                            
                                             break;
                                         case "2":
                                             System.out.println("Opcion numero " + opcion);
