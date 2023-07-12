@@ -11,7 +11,7 @@ public class Pregunta {
     private String respuesta4;
     private String[] respuestas;
     private int nivel;
-
+    
     public Pregunta(String enunciado, String respuesta1, String respuesta2, String respuesta3, String respuesta4, int nivel) {
         this.enunciado = enunciado;
         this.respuesta1 = respuesta1;
@@ -25,6 +25,18 @@ public class Pregunta {
     
     public Pregunta(String enunciado, String[] respuestas, int nivel) {
         this(enunciado, respuestas[0], respuestas[1], respuestas[2], respuestas[3], nivel);
+    }
+    
+    public Pregunta(Pregunta pregunta){
+        this.enunciado = pregunta.getEnunciado();
+        this.respuesta1 = pregunta.getRespuesta1();
+        this.respuesta2 = pregunta.getRespuesta2();
+        this.respuesta3 = pregunta.getRespuesta3();
+        this.respuesta4 = pregunta.getRespuesta4();
+        this.respuestaCorrecta = pregunta.getRespuestaCorrecta();
+        this.nivel = pregunta.getNivel();
+        this.respuestas = pregunta.getRespuestas().clone();
+        
     }
 
     public String getEnunciado() {

@@ -13,9 +13,8 @@ import java.util.Collections;
 import personas.Estudiante;
 
 public class ProyectoPOO {
-
     public static void main(String[] args) {
-
+        int YEAR = LocalDate.now().getYear();
         ArrayList<ArrayList<Pregunta>> preguntasJuego = null;
         Scanner sc = new Scanner(System.in); //Se inicializa scanner para pedirle datos al usuario
         String mensaje = "";//Se inicializa la variable para mostrarle mensajes al usuario
@@ -68,23 +67,23 @@ public class ProyectoPOO {
                                         case "1":
                                             // 1.- Ingresar término
                                             //System.out.println("Opcion numero " + opcion + " Ingresar Termino");
-                                            
-
-                                            System.out.print("Ingrese el año del termino");
-
                                             System.out.print("Ingrese el año del termino: ");
 
                                             int año = Menu.pideNumero(sc);
                                             
-                                            System.out.print("Ingrese el numero del termino: ");
-                                            int termino = Menu.pideNumero(sc);
-                                            
-                                            TerminoAcademico tA = new TerminoAcademico(año, termino);
-                                            if(!terminosAcademicos.contains(tA)){// Pregunta si el termino academico ya tiene ese termino añadido
-                                                terminosAcademicos.add(tA);
-                                                mensaje = "¡Termino añadido con exito!";
+                                            if(año >= YEAR){
+                                                System.out.print("Ingrese el numero del termino: ");
+                                                int termino = Menu.pideNumero(sc);
+
+                                                TerminoAcademico tA = new TerminoAcademico(año, termino);
+                                                if(!terminosAcademicos.contains(tA)){// Pregunta si el termino academico ya tiene ese termino añadido
+                                                    terminosAcademicos.add(tA);
+                                                    mensaje = "¡Termino añadido con exito!";
+                                                }else{
+                                                    mensaje = "Ese termnino ya ha sido ingresado";
+                                                }
                                             }else{
-                                                mensaje = "Ese termnino ya ha sido ingresado";
+                                                mensaje = "El año tiene que ser MAYOR al año actual";
                                             }
                                             System.out.println(mensaje);
                                             System.out.print("Presione ENTER para continuar\n");
@@ -95,20 +94,26 @@ public class ProyectoPOO {
                                             terminoAcademico = Menu.seleccionarTerminoAcademico(terminosAcademicos, sc);//Selecciona un termino academico de la lista de terminos academicos                             
                                             System.out.print("Ingrese el AÑO del termino: ");
                                             año = Menu.pideNumero(sc);
-                                            System.out.print("Ingrese el NUMERO del termino: ");
-                                            termino = Menu.pideNumero(sc);
 
-                                            if(terminosAcademicos.contains(new TerminoAcademico(año, termino))){
-                                                mensaje = "ERROR ya hay un termino con esos datos";
-                                            }
+                                            if(año >= YEAR){
+                                                System.out.print("Ingrese el NUMERO del termino: ");
+                                                int termino = Menu.pideNumero(sc);
+
+                                                if(terminosAcademicos.contains(new TerminoAcademico(año, termino))){
+                                                    mensaje = "ERROR ya hay un termino con esos datos";
+                                                }
+                                                else{
+                                                    terminoAcademico.setAño(año);
+                                                    terminoAcademico.setTermino(termino);
+                                                    mensaje = "Termino Academico Editado con éxito";
+                                                }
+                                                
+
+                                                System.out.println(terminoAcademico);}
                                             else{
-                                                terminoAcademico.setAño(año);
-                                                terminoAcademico.setTermino(termino);
-                                                mensaje = "Termino Academico Editado con éxito";
+                                                mensaje = "El año tiene que ser MAYOR al año actual";
                                             }
                                             System.out.println("\n"+mensaje);
-                                            
-                                            System.out.println(terminoAcademico);
                                             System.out.print("Presione ENTER para continuar\n");
                                             
                                             
@@ -201,7 +206,9 @@ public class ProyectoPOO {
                                 salir = false;
                                 break;
                             case "3":
-                                System.out.println("Opcion numero " + opcion);
+                                System.out.println("Seleccione la materia:");
+                                Materia mselec = (Materia)(Menu.seleccionarObjeto(terminoAcademico.getMaterias(), sc));
+                                preguntasJuego = mselec.getPreguntas();
                             // Opcion 1.3 Administrar preguntas - Menu de administrar preguntas
                                 //**************************
                                 //* 1. Visualizar preguntas *
@@ -219,10 +226,10 @@ public class ProyectoPOO {
                                             Menu.visualizarPreguntas(preguntasJuego, sc);
                                             break;
                                         case "2":
-                                            Menu.agregarPregunta(preguntasJuego, sc);
+                                            Menu.agregarPregunta(mselec, preguntasJuego, sc);
                                             break;
                                         case "3":
-                                            System.out.println("Opcion numero " + opcion);
+                                            Menu.eliminarPregunta(mselec, preguntasJuego, sc);
                                             break;
                                         case "4":
                                             System.out.println("Opcion numero " + opcion);
@@ -261,21 +268,31 @@ public class ProyectoPOO {
                         Materia m = (Materia)(Menu.seleccionarObjeto(terminoAcademico.getMaterias(), sc));
                         preguntasJuego = m.getPreguntas();
                         Paralelo paralelo = (Paralelo)(Menu.seleccionarObjeto(m.getParalelos(), sc));
-                        QuienQuiereSerMillonario juego = new QuienQuiereSerMillonario(preguntasJuego, (Estudiante)Menu.seleccionarObjeto(paralelo.getEstudiantes(), sc));
-                        juego.iniciarJuego(sc);
-                       
-                        
-                        String[] datos = new String[7];
-                        datos[0]= fecha.toString();
-                        datos[1]= juego.getEstudiante();
-                        datos[2]= Integer.toString(juego.getNivelMax());
-                        datos[3] = "60"; 
-                        datos[4]= Integer.toString(juego.getNivelMax());
-                        datos[5] = "Llamada"; 
-                        datos[6] = Integer.toString(juego.getGanancias());
-                        
-                        reportes.add(datos[0] + datos[1] + datos[2] + datos[3] + datos[4] + datos[5] + datos[6]);
-                        
+                        if (paralelo != null){
+                            if(!paralelo.getEstudiantes().isEmpty()){
+                                if(m.getTodosLosNivelesTienenPreguntas()){
+                                    QuienQuiereSerMillonario juego = new QuienQuiereSerMillonario(preguntasJuego, (Estudiante)Menu.seleccionarObjeto(paralelo.getEstudiantes(), sc));
+                                    juego.iniciarJuego(sc);
+                                    String[] datos = new String[7];
+                                    datos[0]= fecha.toString();
+                                    datos[1]= juego.getEstudiante();
+                                    datos[2]= Integer.toString(juego.getNivelMax());
+                                    datos[3] = "60"; 
+                                    datos[4]= Integer.toString(juego.getNivelMax());
+                                    datos[5] = "Llamada"; 
+                                    datos[6] = Integer.toString(juego.getGanancias());
+
+                                    reportes.add(datos[0] + datos[1] + datos[2] + datos[3] + datos[4] + datos[5] + datos[6]);
+                                }else{
+                                    mensaje = "No hay suficiente PREGUNTAS registradas en esa materia";
+                                }
+                            }else{
+                                mensaje = "No hay ESTUDIANTES registrados en ese paralelo";
+                            }
+                        }else{
+                            mensaje = "No hay PARALELOS registrados en esa materia";
+                        }
+                    System.out.println(mensaje);
                     }
                     break; 
                 case "3":

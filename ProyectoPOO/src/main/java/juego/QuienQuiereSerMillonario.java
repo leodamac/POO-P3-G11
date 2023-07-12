@@ -12,12 +12,18 @@ public class QuienQuiereSerMillonario  {
     private int indicePreguntas;
     private int ganancias;
     private Estudiante estudiante;
+    private boolean comodinCincuenta;
+    private boolean comodinPublico;
+    private boolean comodinCompañero;
 
     public QuienQuiereSerMillonario (ArrayList<ArrayList<Pregunta>> preguntas, Estudiante estudiante) {
         this.preguntas = preguntas;
         this.indicePreguntas = 0;
         this.ganancias = 0;
         this.estudiante = estudiante;
+        comodinCincuenta = true;
+        comodinPublico = true;
+        comodinCompañero = true;
     }
 
     public void iniciarJuego(Scanner scanner) {
@@ -34,13 +40,75 @@ public class QuienQuiereSerMillonario  {
             // Obtiene un numero aleatorio 0 - size(Preguntas.nivel)
             int n = rand.nextInt(preguntasNivel.size());
 
-            Pregunta preguntaActual = (Pregunta)(preguntasNivel.get(n));
-            System.out.println("Pregunta #" + (indicePreguntas + 1) + ": ");
+            Pregunta preguntaActual = new Pregunta((Pregunta)(preguntasNivel.get(n)));
+            System.out.println("Pregunta #" + (indicePreguntas + 1) + " : ");
 
-            String[] respuestas = preguntaActual.getRespuestas();
-            Menu.mostrarPregunta(preguntaActual);
+            String[] respuestas = preguntaActual.getRespuestas();          
+            
+            if(comodinCincuenta || comodinCompañero || comodinPublico){
+                Menu.mostrarPregunta(preguntaActual);
+                System.out.println("Desea comodines S si Sí: ");
+                if (scanner.nextLine().toUpperCase().equals("S")){
+                    System.out.println(Menu.crearMenu("50/50\nCompañero\nAyuda del público"));
+                    boolean salir = false;
+                    do{
+                        System.out.print("Ingrese su opción: ");
+                        String opcion = scanner.nextLine();//pregunta la opcion al usuario
+                        System.out.println("");
+                        switch(opcion){
+                            case "1":
+                                if(comodinCincuenta){
+                                    comodinCincuenta = false;
+                                    Random random = new Random();
+                                    boolean fin = false;
+                                    ArrayList<Integer> incorrectas = new ArrayList();
+                                    while(!fin){
+                                        int j = random.nextInt(4 );
+                                        if(!respuestas[j].equals(preguntaActual.getRespuestaCorrecta()) && !incorrectas.contains(j)){
+                                            incorrectas.add(j);
+                                        }
+                                        if(incorrectas.size()==2){
+                                            fin = true;
+                                        }
+                                    }
+                                    for(int indice: incorrectas){
+                                        respuestas[indice] = " ";
+                                    }
+                                    salir = true;
+                                }else{
+                                    System.out.println("Ya ha seleccionado ESE comodín\n");
+                                }
+                                break;
+                            case "2":
+                                if(comodinCompañero){
+                                    comodinCompañero = false;
+                                    salir = true;
+                                }else{
+                                    System.out.println("Ya ha seleccionado ESE comodín\n");
+                                }
+                                break;
+                            case "3":
+                                if(comodinPublico){
+                                    comodinPublico = false;
+                                    salir = true;
+                                }else{
+                                    System.out.println("Ya ha seleccionado ESE comodín\n");
+                                }
+                                break;
+                            case "4":
+                                System.out.println("NO ha seleccionado ningún comodín\n");
+                                salir = true;
+                                break;
+                            default:
+                                System.out.println("Ingrese solo numeros de las opciones\n");
+                                break;
+                        }
+                    }while(!salir);
+                }
+            }
             String usuarioString = "";
             boolean salir = false;
+            Menu.mostrarPregunta(preguntaActual);
             do{
                 System.out.print("Elige la opción correcta (1-" + preguntaActual.getRespuestas().length + "): ");
                 usuarioString = scanner.nextLine();
@@ -56,9 +124,8 @@ public class QuienQuiereSerMillonario  {
                 }
             }
             while(!salir);
+
             int usuario = Integer.parseInt(usuarioString);
-            System.out.println(preguntaActual.getRespuestas()[usuario-1] +" "+(preguntaActual.getRespuestaCorrecta()));
-            System.out.println(respuestas[usuario-1].equals(preguntaActual.getRespuestaCorrecta()));
             if (respuestas[usuario-1].equals(preguntaActual.getRespuestaCorrecta())) {
                 ganancias += preguntaActual.getNivel() *100;
                 System.out.println("¡Respuesta correcta! Has ganado $" + preguntaActual.getNivel() *100);

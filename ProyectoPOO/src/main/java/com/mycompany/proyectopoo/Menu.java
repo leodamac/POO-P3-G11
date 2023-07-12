@@ -5,6 +5,7 @@ import academico.Paralelo;
 import academico.TerminoAcademico;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.Scanner;
 import juego.Pregunta;
 import personas.Estudiante;
@@ -175,7 +176,7 @@ public class Menu {
     
     //Le añade un marco a la pregunta con sus 4 respuestas.
     public static void mostrarPregunta(Pregunta pregunta){
-        System.out.println(Menu.agregarMarco('*', pregunta));
+        System.out.println(Menu.agregarMarco('-', pregunta));
     }
     
     public static TerminoAcademico seleccionarTerminoAcademico(ArrayList<TerminoAcademico> terminosAcademicos, Scanner sc){
@@ -192,7 +193,7 @@ public class Menu {
         }
         boolean salir = false;
         Object objeto = null;
-        while(!salir){           
+        while(!salir && !objetos.isEmpty()){           
             int op = pideNumero(sc);//pide el numero del usuario
             // se pone como null para preguntar mas adelante si el usuario puso un numero valido de objeto
 
@@ -236,9 +237,7 @@ public class Menu {
         cargarEstudiantes(materia.getParalelos().get(0));
         cargarPreguntas(materia);
         
-        terminoAcademico.addMateria(materia);
-   
-        
+        terminoAcademico.addMateria(materia);        
     }
     
     public static void cargarEstudiantes(Paralelo paralelo){
@@ -311,20 +310,25 @@ public class Menu {
     public static void visualizarPreguntas(ArrayList<ArrayList<Pregunta>>preguntas, Scanner sc){
         int i = 0;
         int indice = 0;
+        boolean hayPreguntas = false;
         // EL while se ejecutara mientras el indice sea menor a la cantidad de niveles de las preguntas
         while(indice<preguntas.size()){
             for (Pregunta p: preguntas.get(indice)){
                 i++;
                 System.out.print("Presione ENTER para ver la pregunta nº" + i);
+                hayPreguntas = true;
                 sc.nextLine();
                 // Muestra la pregunta
                 System.out.println(p);
             }
             indice++;
         }
+        if(!hayPreguntas){
+            System.out.println("NO HAY PREGUNTAS");
+        }
     }
     
-    public static void agregarPregunta(ArrayList<ArrayList<Pregunta>>preguntas, Scanner sc){
+    public static void agregarPregunta(Materia materia, ArrayList<ArrayList<Pregunta>>preguntas, Scanner sc){
         System.out.println("Ingrese el enunciado de la pregunta: ");
         String enunciado = sc.nextLine();
         String[] respuestas = new String[4];
@@ -343,6 +347,70 @@ public class Menu {
         // Añade la nueva pregunta en la lista de preguntas segun el nivel
         preguntas.get(nivel-1).add(new Pregunta(enunciado, respuestas, nivel));
         System.out.println("¡PREGUNTA AÑADIDA CON EXITO!");
+        materia.setTodosLosNivelesTienenPreguntas(true);
         sc.nextLine();
+    }
+    //Selecciona los indices de la pregunta segun el nivel y el indice en el array del nivel
+    //ejemplo La pregunta esta en el array de las preguntas nivel 1 y el indice es 2 por lo que seria 2,1
+    public static int[] seleccionarIndicesPregunta(ArrayList<ArrayList<Pregunta>> preguntas, Scanner sc){
+        int[] respuesta = {-1,-1};
+        Iterator iterador = preguntas.iterator();//niveles de las preguntas
+        ArrayList<Pregunta> preguntasNivel = null;
+        int nivel = 0;
+        int hayPreguntas = 0;
+        while (iterador.hasNext()){
+            preguntasNivel = (ArrayList<Pregunta>)iterador.next();//Preguntas de cada nivel
+            //Si la lista de preguntas no está vacío entonces muestra la pregunta y un formato
+
+            int i = 0;
+            nivel++;
+            System.out.println("Nivel " + nivel);
+            for(Pregunta pregunta: preguntasNivel){
+                i++;
+                hayPreguntas++;
+                System.out.println(i + ") " + pregunta.getEnunciado());
+            }
+            System.out.println(crearLineaSimbolo('+',50));
+
+        }
+        if(hayPreguntas>0){
+            System.out.println("Seleccione el nivel de la pregunta");
+            int nivelSeleccion = pideNumero(sc);
+            System.out.println("Seleccione el indice de la pregunta");
+            int indicePreguntaSeleccion = pideNumero(sc);
+            respuesta[0] = (nivelSeleccion - 1);
+            respuesta[1] = (indicePreguntaSeleccion - 1);
+        }else{
+            System.out.println("No hay preguntas");
+        }
+        
+        return respuesta;
+    }
+    //Selecciona los indices de las preguntas para despues eliminar
+    public static void eliminarPregunta(Materia materia, ArrayList<ArrayList<Pregunta>> preguntas, Scanner sc){
+        int[] indices = seleccionarIndicesPregunta(preguntas, sc);//selecciona los indices de la preguntas
+        if(indices[0]>-1){
+            Iterator<ArrayList<Pregunta>>iterador = preguntas.iterator();//crea el iterador
+            int n = 0;
+            boolean salir = false;
+            while (iterador.hasNext() && !salir){
+                ArrayList<Pregunta> preguntasNivel = (ArrayList<Pregunta>)iterador.next();//es la lista de cada nivel
+                if (indices[0] == n){//si coincide el nivel de incies[0] con n entonces entra en el if
+                    Iterator it = preguntasNivel.iterator();// iterador de las preguntas en cada nivel
+                    int i = 0;
+                    while (it.hasNext() && !salir){
+                        it.next();
+                        //si el indice[1] coincide con el i entonces va a remover esa pregunta
+                        if (indices[1] == i){
+                            it.remove();
+                            materia.setTodosLosNivelesTienenPreguntas(false);
+                            salir = true;
+                        }
+                        i++;
+                    }
+                }
+                n++; 
+            }
+        }
     }
 }
