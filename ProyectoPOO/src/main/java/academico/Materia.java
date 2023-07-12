@@ -8,17 +8,19 @@ public class Materia {
     private String codigo;
     private String nombre;
     private ArrayList<Paralelo> paralelos;
-    private ArrayList<ArrayList> preguntas;
+    private ArrayList<ArrayList<Pregunta>> preguntas;
+    private int nivel;
 
-    public Materia(String codigo, String nombre, int niveles) {
+    public Materia(String codigo, String nombre, int nivel) {
         this.codigo = codigo;
         this.nombre = nombre;
         paralelos = new ArrayList();
         preguntas = new ArrayList();
-        this.crearNivelesPreguntas(niveles);
+        this.nivel = nivel;
+        this.crearNivelesPreguntas(nivel);
     }  
     
-    public void crearNivelesPreguntas(int niveles){
+    public void crearNivelesPreguntas(int nivel){
         boolean salir = false;
         int indice = 0;
         while(!salir){
@@ -57,7 +59,7 @@ public class Materia {
         return paralelos;
     }
     
-    public ArrayList getPreguntas() {
+    public ArrayList<ArrayList<Pregunta>> getPreguntas() {
         return preguntas;
     }
 
@@ -67,6 +69,10 @@ public class Materia {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+    
+    public void setNivel(int nivel){
+        this.nivel = nivel;
     }
     
     @Override

@@ -20,9 +20,9 @@ public class QuienQuiereSerMillonario  {
         this.estudiante = estudiante;
     }
 
-    public void iniciarJuego(Scanner sc) {
+    public void iniciarJuego(Scanner scanner) {
         System.out.println("¡Bienvenido a ¿Quién quiere ser millonario?!");
-        System.out.println("Responderá una serie de preguntas.");
+        System.out.println("Responderás una serie de preguntas.");
         System.out.println("Listo para empezar...");
         System.out.println();
 
@@ -42,9 +42,8 @@ public class QuienQuiereSerMillonario  {
             String usuarioString = "";
             boolean salir = false;
             do{
-                //Pide al usuario que ingrese 1,2,3 o 4 para la Respuesta Correcta
-                System.out.print("Elija la opción correcta (1-" + preguntaActual.getRespuestas().length + "): ");
-                usuarioString = sc.nextLine();
+                System.out.print("Elige la opción correcta (1-" + preguntaActual.getRespuestas().length + "): ");
+                usuarioString = scanner.nextLine();
                 switch (usuarioString){
                     case "1":
                     case "2":
@@ -53,28 +52,26 @@ public class QuienQuiereSerMillonario  {
                         salir = true;
                         break;
                     default:
-                        System.out.println("Elija solamente numeros entre 1-4");
+                        System.out.println("Elige solamente numeros entre 1-4");
                 }
             }
             while(!salir);
-            // COnvierte a int el numero ingresado
             int usuario = Integer.parseInt(usuarioString);
-            //Verifica si la opcion elegida por el usuario es la respuesta correcta
+            System.out.println(preguntaActual.getRespuestas()[usuario-1] +" "+(preguntaActual.getRespuestaCorrecta()));
+            System.out.println(respuestas[usuario-1].equals(preguntaActual.getRespuestaCorrecta()));
             if (respuestas[usuario-1].equals(preguntaActual.getRespuestaCorrecta())) {
-                // Si es correecto suma puntos
                 ganancias += preguntaActual.getNivel() *100;
-                System.out.println("¡Respuesta correcta! Ha ganado $" + preguntaActual.getNivel() *100);
+                System.out.println("¡Respuesta correcta! Has ganado $" + preguntaActual.getNivel() *100);
                 System.out.println("Ganancias totales: $" + ganancias);
                 System.out.println();
                 indicePreguntas++;
             } else {
-                //Caso contrario pierde
                 System.out.println("Respuesta incorrecta. ¡Fin del juego!");
-                indicePreguntas = preguntas.size();
+                break;
             }
         }
 
-        System.out.println("¡Ha terminado el juego!");
+        System.out.println("¡Has terminado el juego!");
         System.out.println("Ganancias totales: $" + ganancias);
         System.out.println("¡Gracias por jugar!");
     }
