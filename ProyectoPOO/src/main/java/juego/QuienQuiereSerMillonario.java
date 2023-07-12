@@ -75,5 +75,15 @@ public class QuienQuiereSerMillonario  {
         System.out.println("Ganancias totales: $" + ganancias);
         System.out.println("¡Gracias por jugar!");
     }
+    public int getNivelMax(){
+        return indicePreguntas+1;
+    }
+    
+    public int getGanancias(){
+        return ganancias;
+    }
+    public String getEstudiante(){
+        return estudiante.toString();
+    }
 
 }
