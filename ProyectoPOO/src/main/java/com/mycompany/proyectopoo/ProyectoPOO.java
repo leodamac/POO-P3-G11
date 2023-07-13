@@ -9,6 +9,7 @@ import academico.TerminoAcademico;
 import academico.Materia;
 import academico.Paralelo;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Collections;
 import personas.Estudiante;
 
@@ -263,7 +264,6 @@ public class ProyectoPOO {
                         System.out.println("No ha elegido la Materia ni el término Académico");
                     } else{
                         LocalDate fecha = LocalDate.now();
-                        System.out.println("Fecha: "+fecha);
                         
                         Materia m = (Materia)(Menu.seleccionarObjeto(terminoAcademico.getMaterias(), sc));
                         preguntasJuego = m.getPreguntas();
@@ -273,16 +273,17 @@ public class ProyectoPOO {
                                 if(m.getTodosLosNivelesTienenPreguntas()){
                                     QuienQuiereSerMillonario juego = new QuienQuiereSerMillonario(preguntasJuego, (Estudiante)Menu.seleccionarObjeto(paralelo.getEstudiantes(), sc));
                                     juego.iniciarJuego(sc);
-                                    String[] datos = new String[7];
-                                    datos[0]= fecha.toString();
-                                    datos[1]= juego.getEstudiante();
-                                    datos[2]= Integer.toString(juego.getNivelMax());
-                                    datos[3] = "60"; 
-                                    datos[4]= Integer.toString(juego.getNivelMax());
-                                    datos[5] = "Llamada"; 
-                                    datos[6] = Integer.toString(juego.getGanancias());
-
-                                    reportes.add(datos[0] + datos[1] + datos[2] + datos[3] + datos[4] + datos[5] + datos[6]);
+                                    Reporte reporte = new Reporte(fecha.toString(),juego.getEstudiante(),juego.getNivelMax(),60,juego.getNivelMax(),"Llamada, 50/50",juego.getGanancias());
+                                    ArrayList report = new ArrayList();
+                                    report.add(reporte.getFecha());
+                                    report.add(reporte.getParticipante());
+                                    report.add(Integer.toString(reporte.getLevel()));
+                                    report.add(Integer.toString(reporte.getTiempo()));
+                                    report.add(Integer.toString(reporte.getLevel()));
+                                    report.add(reporte.getComodines());
+                                    report.add(Integer.toString(reporte.getPremio()));
+                                    System.out.println(report);
+                                    reportes.add(report);                                                                                            
                                 }else{
                                     mensaje = "No hay suficiente PREGUNTAS registradas en esa materia";
                                 }
@@ -295,8 +296,9 @@ public class ProyectoPOO {
                     System.out.println(mensaje);
                     }
                     break; 
-                case "3":
+                case "3":                 
                     System.out.println(reportes);
+                    
                     // Reporte
                     /*Opción 3: Reporte
                     En esta opción se podrá visualizar los juegos realizados ordenados por fecha.
