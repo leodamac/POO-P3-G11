@@ -6,15 +6,15 @@ import java.util.ArrayList;
 
 public class Reporte{
     private String fecha;
-    private String participante;
+    private Estudiante participante;
     private int level;
     private int tiempo;
     private int preguntasContestadas;
-    private String comodines;
+    private Comodin[] comodines;
     private int premio;
     ArrayList reportes = new ArrayList();
     
-    public Reporte(String fecha , String participante, int level, int tiempo, int preguntasContestadas, String comodines, int premio){
+    public Reporte(String fecha , Estudiante participante, int level, int tiempo, int preguntasContestadas, Comodin[] comodines, int premio){
         this.fecha=fecha;
         this.level=level;
         this.participante=participante;
@@ -26,7 +26,7 @@ public class Reporte{
     public String getFecha(){
         return fecha;
     }
-    public String getParticipante(){
+    public Estudiante getParticipante(){
         return participante;
     }
     public int getLevel(){
@@ -38,11 +38,26 @@ public class Reporte{
     public int getpreguntasContestadas(){
         return preguntasContestadas;
     }
-    public String getComodines(){
+    public Comodin[] getComodines(){
         return comodines;
     }
     public int getPremio(){
         return premio;
+    }
+    
+    @Override
+    /*Fecha del juego	
+    Participante	
+    Nivel máximo alcanzado	
+    Tiempo  
+    CantidadPreguntasContestadas   
+    Comodines utilizados
+    Premio*/
+
+    public String toString(){
+        String comodinesUsados = comodines[0].toString() + " " + comodines[1].toString() + " " + comodines[0].toString() ;
+
+        return fecha + " " + participante.getNombre() + " " + level + " " + tiempo + " " + preguntasContestadas + " " + comodinesUsados + " " + premio;
     }
     
 } 

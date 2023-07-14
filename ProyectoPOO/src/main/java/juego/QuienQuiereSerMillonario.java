@@ -12,18 +12,19 @@ public class QuienQuiereSerMillonario  {
     private int indicePreguntas;
     private int ganancias;
     private Estudiante estudiante;
-    private boolean comodinCincuenta;
-    private boolean comodinPublico;
-    private boolean comodinCompañero;
+    private Comodin comodinCincuenta;
+    private Comodin comodinCompañero;
+    private Comodin comodinPublico;
+    
 
     public QuienQuiereSerMillonario (ArrayList<ArrayList<Pregunta>> preguntas, Estudiante estudiante) {
         this.preguntas = preguntas;
         this.indicePreguntas = 0;
         this.ganancias = 0;
         this.estudiante = estudiante;
-        comodinCincuenta = true;
-        comodinPublico = true;
-        comodinCompañero = true;
+        comodinCincuenta = new Comodin("50/50");
+        comodinCompañero = new Comodin("Compañero");
+        comodinPublico = new Comodin("Publico");
     }
 
     public void iniciarJuego(Scanner scanner) {
@@ -45,7 +46,7 @@ public class QuienQuiereSerMillonario  {
 
             String[] respuestas = preguntaActual.getRespuestas();          
             
-            if(comodinCincuenta || comodinCompañero || comodinPublico){
+            if(!comodinCincuenta.isUsado() || !comodinCompañero.isUsado() || !comodinPublico.isUsado()){
                 Menu.mostrarPregunta(preguntaActual);
                 System.out.println("Desea comodines S si Sí: ");
                 if (scanner.nextLine().toUpperCase().equals("S")){
@@ -57,8 +58,8 @@ public class QuienQuiereSerMillonario  {
                         System.out.println("");
                         switch(opcion){
                             case "1":
-                                if(comodinCincuenta){
-                                    comodinCincuenta = false;
+                                if(!comodinCincuenta.isUsado()){
+                                    comodinCincuenta.usar();
                                     Random random = new Random();
                                     boolean fin = false;
                                     ArrayList<Integer> incorrectas = new ArrayList();
@@ -80,16 +81,16 @@ public class QuienQuiereSerMillonario  {
                                 }
                                 break;
                             case "2":
-                                if(comodinCompañero){
-                                    comodinCompañero = false;
+                                if(!comodinCompañero.isUsado()){
+                                    comodinCompañero.usar();
                                     salir = true;
                                 }else{
                                     System.out.println("Ya ha seleccionado ESE comodín\n");
                                 }
                                 break;
                             case "3":
-                                if(comodinPublico){
-                                    comodinPublico = false;
+                                if(!comodinPublico.isUsado()){
+                                    comodinPublico.usar();
                                     salir = true;
                                 }else{
                                     System.out.println("Ya ha seleccionado ESE comodín\n");
@@ -149,8 +150,13 @@ public class QuienQuiereSerMillonario  {
     public int getGanancias(){
         return ganancias;
     }
-    public String getEstudiante(){
-        return estudiante.toString();
+    
+    public Comodin[] getComodines(){
+        Comodin[] comodines = {comodinCincuenta,  comodinCompañero, comodinPublico};
+        return comodines;
+    }
+    public Estudiante getEstudiante(){
+        return estudiante;
     }
 
 }

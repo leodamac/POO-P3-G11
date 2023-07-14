@@ -9,8 +9,6 @@ import academico.TerminoAcademico;
 import academico.Materia;
 import academico.Paralelo;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Collections;
 import personas.Estudiante;
 
 public class ProyectoPOO {
@@ -24,7 +22,7 @@ public class ProyectoPOO {
         
         ArrayList<TerminoAcademico> terminosAcademicos = new ArrayList();
         terminosAcademicos.add(terminoAcademico);//Agrega el termino Academico a la lista de terminos academicos
-        ArrayList reportes = new ArrayList();
+        ArrayList<Reporte> reportes = new ArrayList();
 
         ////////////////////////////////////////////////////////
         
@@ -273,17 +271,9 @@ public class ProyectoPOO {
                                 if(m.getTodosLosNivelesTienenPreguntas()){
                                     QuienQuiereSerMillonario juego = new QuienQuiereSerMillonario(preguntasJuego, (Estudiante)Menu.seleccionarObjeto(paralelo.getEstudiantes(), sc));
                                     juego.iniciarJuego(sc);
-                                    Reporte reporte = new Reporte(fecha.toString(),juego.getEstudiante(),juego.getNivelMax(),60,juego.getNivelMax(),"Llamada, 50/50",juego.getGanancias());
-                                    ArrayList report = new ArrayList();
-                                    report.add(reporte.getFecha());
-                                    report.add(reporte.getParticipante());
-                                    report.add(Integer.toString(reporte.getLevel()));
-                                    report.add(Integer.toString(reporte.getTiempo()));
-                                    report.add(Integer.toString(reporte.getLevel()));
-                                    report.add(reporte.getComodines());
-                                    report.add(Integer.toString(reporte.getPremio()));
-                                    System.out.println(report);
-                                    reportes.add(report);                                                                                            
+                                    //public Reporte(String fecha , Estudiante participante, int level, int tiempo, int preguntasContestadas, boolean[] comodines, int premio)
+                                    Reporte reporte = new Reporte(fecha.toString(),juego.getEstudiante(),juego.getNivelMax(),60,juego.getNivelMax(), juego.getComodines(),juego.getGanancias());
+                                    reportes.add(reporte);                                                                                            
                                 }else{
                                     mensaje = "No hay suficiente PREGUNTAS registradas en esa materia";
                                 }
@@ -296,8 +286,11 @@ public class ProyectoPOO {
                     System.out.println(mensaje);
                     }
                     break; 
-                case "3":                 
-                    System.out.println(reportes);
+                case "3":
+                    for(Reporte r: reportes){
+                        System.out.println(r);
+                    }
+                    
                     
                     // Reporte
                     /*Opción 3: Reporte
