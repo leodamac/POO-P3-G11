@@ -3,7 +3,7 @@ package juego;
 public class Comodin {
     private String nombre;
     private boolean usado;
-    
+    private Pregunta pregunta;
     public Comodin(String nombre){
         this.nombre = nombre;
         usado = false;
@@ -16,12 +16,14 @@ public class Comodin {
     public void usar(){
         this.usado = true;
     }
-    
+    public void setPregunta(Pregunta pregunta){
+        this.pregunta=pregunta;
+    }
     @Override
     public String toString(){
         String u = "";
         if(usado){
-            u = "Usado";
+            u = "Usado en pregunta: "+pregunta.getNivel();
         }else{
             u = "NO usado";
         }

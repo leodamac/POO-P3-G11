@@ -10,6 +10,7 @@ import academico.Materia;
 import academico.Paralelo;
 import java.util.ArrayList;
 import personas.Estudiante;
+import java.util.Collections;
 
 public class ProyectoPOO {
     public static void main(String[] args) {
@@ -29,6 +30,7 @@ public class ProyectoPOO {
 
         String opcion;
         boolean salir = false;
+        System.out.println("*Bienvenidos a sistema de apoyo docente*");
         do{
             //Sistema para preguntarle la opcion al usuario en el menú principal
             Menu.mostrarMenuPrincipal();//muestra el menu principal
@@ -179,18 +181,25 @@ public class ProyectoPOO {
                                             m.setNivel(newlevel);
                                             break; 
                                             
-                                        case "3":
+                                        case "3": //Crear paralelo
                                             System.out.println("Seleccione la materia:");
                                             Materia mselec = (Materia)(Menu.seleccionarObjeto(terminoAcademico.getMaterias(), sc));
                                             System.out.println("Ingrese el paralelo:");
                                             int course = Menu.pideNumero(sc);
-                                            Paralelo p = new Paralelo(mselec, course, "url");
+                                            System.out.println("Ingrese la direccion del archivo de estudiantes: ");
+                                            String url = sc.nextLine();
+                                            Paralelo p = new Paralelo(mselec, course, url);
                                             mselec.addParalelo(p); 
-                                            
+                                            p.addEstudiante(new Estudiante("Estudiante1", "202013456"));
+                                            p.addEstudiante(new Estudiante("Estudiante2", "201513454"));
                                             break;
                                             
-                                        case "4":
-                                            System.out.println("Opcion numero " + opcion);
+                                        case "4": //Eliminar paralelo
+                                            System.out.println("Seleccione la materia:");
+                                            Materia selecmat = (Materia)(Menu.seleccionarObjeto(terminoAcademico.getMaterias(), sc));
+                                            System.out.println("Ingrese paralelo a eliminar");                                         
+                                            Menu.eliminarParalelo(selecmat.getParalelos(), sc);
+                                            
                                             break;
                                         case "5":
                                             System.out.println("Opcion numero " + opcion);
@@ -253,7 +262,7 @@ public class ProyectoPOO {
                         }
                       }
                     while(!salir);
-                    salir = false;
+                    salir = false; 
                     break;
                 case "2":
                     // Nuevo juego
@@ -262,17 +271,27 @@ public class ProyectoPOO {
                         System.out.println("No ha elegido la Materia ni el término Académico");
                     } else{
                         LocalDate fecha = LocalDate.now();
-                        
+                        mensaje="";
                         Materia m = (Materia)(Menu.seleccionarObjeto(terminoAcademico.getMaterias(), sc));
                         preguntasJuego = m.getPreguntas();
                         Paralelo paralelo = (Paralelo)(Menu.seleccionarObjeto(m.getParalelos(), sc));
+                        System.out.println("Selecciones compañero de apoyo:");
+                        Estudiante apoyo = (Estudiante)Menu.seleccionarObjeto(paralelo.getEstudiantes(), sc);
+                        if (m != null){
                         if (paralelo != null){
                             if(!paralelo.getEstudiantes().isEmpty()){
                                 if(m.getTodosLosNivelesTienenPreguntas()){
+                                   
                                     QuienQuiereSerMillonario juego = new QuienQuiereSerMillonario(preguntasJuego, (Estudiante)Menu.seleccionarObjeto(paralelo.getEstudiantes(), sc));
                                     juego.iniciarJuego(sc);
                                     //public Reporte(String fecha , Estudiante participante, int level, int tiempo, int preguntasContestadas, boolean[] comodines, int premio)
-                                    Reporte reporte = new Reporte(fecha.toString(),juego.getEstudiante(),juego.getNivelMax(),60,juego.getNivelMax(), juego.getComodines(),juego.getGanancias());
+                                    String premio = "No hay premio ñaño";
+                                    if(juego.getNivelMax()==m.getNivel()+1){
+                                        System.out.println("Ingrese el premio: ");
+                                        premio = sc.nextLine();                                        
+                                    }
+                                    
+                                    Reporte reporte = new Reporte(fecha.toString(),juego.getEstudiante(),juego.getNivelMax(),60,juego.getNivelMax()-1, juego.getComodines(),premio,terminoAcademico ,m.getCodigo(), paralelo);
                                     reportes.add(reporte);                                                                                            
                                 }else{
                                     mensaje = "No hay suficiente PREGUNTAS registradas en esa materia";
@@ -283,13 +302,25 @@ public class ProyectoPOO {
                         }else{
                             mensaje = "No hay PARALELOS registrados en esa materia";
                         }
+                        }
+                        else{mensaje = "No hay materia";} 
                     System.out.println(mensaje);
                     }
+                        
                     break; 
                 case "3":
+                    TerminoAcademico termino1 = Menu.seleccionarTerminoAcademico(terminosAcademicos, sc);
+                    Materia m = (Materia)(Menu.seleccionarObjeto(termino1.getMaterias(), sc));
+                    String mcod = m.getCodigo();
+                    Paralelo paralelo = (Paralelo)(Menu.seleccionarObjeto(m.getParalelos(), sc));
+                    Collections.sort(reportes);
                     for(Reporte r: reportes){
-                        System.out.println(r);
-                    }
+                        if (r.getP().equals(paralelo) && r.getMateria().equals(m.getCodigo()) && termino1.equals(r.getT()) ){      
+                            System.out.println(r);
+                        }
+                     }
+                        
+                        
                     
                     
                     // Reporte
