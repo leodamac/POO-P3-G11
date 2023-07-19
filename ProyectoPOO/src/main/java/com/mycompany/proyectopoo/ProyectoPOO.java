@@ -24,15 +24,19 @@ public class ProyectoPOO {
     
     public void iniciar() {
         Scanner sc = new Scanner(System.in); //Se inicializa scanner para pedirle datos al usuario
+        terminoAcademico = null; // se inicializa un termino academico nulo para ser usado como termino academico por defecto y no crear varios termino
 
-        terminoAcademico = new TerminoAcademico(2023, 1); // se inicializa un termino academico nulo para ser usado como termino academico por defecto y no crear varios termino
-        Menu.cargarDatosIniciales(terminoAcademico);
         terminosAcademicos = new ArrayList();
-        terminosAcademicos.add(terminoAcademico);//Agrega el termino Academico a la lista de terminos academicos
+        Menu.cargarTerminosAcademicos(terminosAcademicos);
+        
+        System.out.println("*Bienvenidos a sistema de apoyo docente*");
+        System.out.println("*Seleccione el termino academico para iniciar el Sistema*");
+        terminoAcademico = (TerminoAcademico) Menu.seleccionarObjeto(terminosAcademicos, sc);
+        Menu.cargarDatosIniciales(terminoAcademico);
         reportes = new ArrayList();
         ////////////////////////////////////////////////////////
         salir = false;
-        System.out.println("*Bienvenidos a sistema de apoyo docente*");
+        
         do{
             //Sistema para preguntarle la opcion al usuario en el menú principal
             Menu.mostrarMenuPrincipal();//muestra el menu principal
@@ -327,13 +331,15 @@ public class ProyectoPOO {
         } else{
             LocalDate fecha = LocalDate.now();
             mensaje="";
-            Materia m = (Materia)(Menu.seleccionarObjeto(terminoAcademico.getMaterias(), sc));
-            preguntasJuego = m.getPreguntas();
-            Paralelo paralelo = (Paralelo)(Menu.seleccionarObjeto(m.getParalelos(), sc));
-            System.out.println("Selecciones compañero de apoyo:");
-            Estudiante apoyo = (Estudiante)Menu.seleccionarObjeto(paralelo.getEstudiantes(), sc);
+            System.out.println("Selecciones la MATERIA:");
+            Materia m = (Materia)(Menu.seleccionarObjeto(terminoAcademico.getMaterias(), sc));      
             if (m != null){
+                preguntasJuego = m.getPreguntas();
+                System.out.println("Selecciones el PARALELO:");
+                Paralelo paralelo = (Paralelo)(Menu.seleccionarObjeto(m.getParalelos(), sc));
             if (paralelo != null){
+                System.out.println("Selecciones compañero de apoyo:");
+                Estudiante apoyo = (Estudiante)Menu.seleccionarObjeto(paralelo.getEstudiantes(), sc);
                 if(!paralelo.getEstudiantes().isEmpty()){
                     if(m.getTodosLosNivelesTienenPreguntas()){
 

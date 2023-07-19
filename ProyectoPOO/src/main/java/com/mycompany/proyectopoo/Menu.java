@@ -4,11 +4,16 @@ import academico.Materia;
 import academico.Paralelo;
 import academico.TerminoAcademico;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import juego.Pregunta;
 import personas.Estudiante;
 
@@ -234,14 +239,40 @@ public class Menu {
     }
     
         public static void cargarDatosIniciales(TerminoAcademico terminoAcademico){
-            Materia materia = new Materia("CCPG1043", "Programación Orientada a Objetos", 15);
-            materia.addParalelo(new Paralelo(materia, 3, "url"));
-            cargarEstudiantes(materia.getParalelos().get(0));
-            cargarPreguntas(materia);
-        
-        terminoAcademico.addMateria(materia);        
+            cargarMaterias(terminoAcademico);      
     }
     
+    public static void cargarTerminosAcademicos(ArrayList<TerminoAcademico> terminosAcademicos){
+        File dir = new File("src/archivos");
+        for(String termino: dir.list()){
+            String[] t = termino.split("-");
+            terminosAcademicos.add(new TerminoAcademico(t[0], t[1]));
+        }
+    }
+    
+    public static void cargarMaterias(TerminoAcademico terminoAcademico){
+        try( BufferedReader reader = new BufferedReader(new FileReader("src/archivos/" +  terminoAcademico + "/materias/materias.txt")) ){
+            String linea;
+            String cabecera = reader.readLine();
+            while((linea = reader.readLine())  != null){
+                String[] datos = linea.split(",");
+                Materia materia = new Materia(datos[0], datos[1], convierteTxtAEntero(datos[2]));
+                
+                cargarPreguntas(materia, terminoAcademico);
+                File dir = new File("src/archivos/" + terminoAcademico + "/materias/" + materia.getCodigo());
+                for(String p: dir.list()){
+                    Paralelo paralelo = new Paralelo(materia, convierteTxtAEntero(p.split("\\.")[0]), "src/archivos/" +  terminoAcademico + "/materias/" + materia.getCodigo() + "/" + p);
+                    cargarEstudiantes(paralelo,terminoAcademico);
+                    materia.addParalelo(paralelo);
+                }
+                terminoAcademico.addMateria(materia);
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
         
     //Cargar lista de estudiantes de una ruta
     public static void cargarEstudiantes(Paralelo paralelo, String ruta){
@@ -261,8 +292,8 @@ public class Menu {
     }
     
     //Carga la lista de estudiantes de una ruta por defecto
-    public static void cargarEstudiantes(Paralelo paralelo){
-        cargarEstudiantes(paralelo, "src/archivos/materias/" + paralelo.getMateria().getCodigo() + "/" + paralelo.getNumero() + ".txt");
+    public static void cargarEstudiantes(Paralelo paralelo, TerminoAcademico terminoAcademico){
+        cargarEstudiantes(paralelo, "src/archivos/" +  terminoAcademico + "/materias/" + paralelo.getMateria().getCodigo() + "/" + paralelo.getNumero() + ".txt");
     }
     
     public static ArrayList<Pregunta> abrirArchivoPregunta(String ruta){
@@ -299,9 +330,9 @@ public class Menu {
     }
     
     //Cargar las preguntas de la materia
-    public static void cargarPreguntas(Materia materia){
+    public static void cargarPreguntas(Materia materia, TerminoAcademico terminoAcademico){
         //System.out.println(System.getProperty("user.dir"));
-        ArrayList<Pregunta> preguntas = abrirArchivoPregunta( "src/archivos/preguntas/"+ materia.getCodigo() + ".txt");
+        ArrayList<Pregunta> preguntas = abrirArchivoPregunta( "src/archivos/" +  terminoAcademico + "/preguntas/" + materia.getCodigo() + ".txt");
         materia.addPreguntas(preguntas);
     }
         

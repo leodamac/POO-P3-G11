@@ -1,5 +1,7 @@
 package academico;
 import academico.Materia;
+import com.mycompany.proyectopoo.Menu;
+
 import java.util.ArrayList;
 
 public class TerminoAcademico implements Comparable <TerminoAcademico>{
@@ -12,6 +14,10 @@ public class TerminoAcademico implements Comparable <TerminoAcademico>{
         this.año = año;
         this.termino = termino;
         materias = new ArrayList();
+    }
+    //Recibe los el año y el termino academico en string e internamente lo convierte en numeros y luego llama el constructor para crear el terminoAcademico
+    public TerminoAcademico(String año, String termino){
+        this(Menu.convierteTxtAEntero(año), Menu.convierteTxtAEntero(termino));
     }
     
     public void addMateria(Materia materia){
