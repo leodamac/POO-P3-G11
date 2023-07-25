@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+
+<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.poop3g11.JuegoController">
+    <children>
+        <!-- Fondo -->
+        <Rectangle fill="#378ba4" height="816.0" width="858.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="142.0" AnchorPane.topAnchor="0.0" />
+
+        <!-- Encabezado -->
+        <HBox layoutX="50.0" layoutY="20.0" spacing="10.0" AnchorPane.bottomAnchor="740.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="449.0" AnchorPane.topAnchor="20.0">
+            <Label alignment="CENTER" prefHeight="40.0" prefWidth="501.0" style="-fx-font-size: 28px; -fx-text-fill: white;" text="¿Quién quiere ser millonario?" />
+        </HBox>
+
+        <!-- Panel principal de la pregunta -->
+        <StackPane layoutX="50.0" layoutY="70.0" AnchorPane.leftAnchor="100.0">
+            <VBox spacing="20.0">
+                <Label fx:id="preguntaLabel" maxWidth="700.0" minWidth="700.0" style="-fx-font-size: 24px; -fx-text-fill: white; -fx-font-weight: bold;" text="Pregunta" underline="true" wrapText="true">
+               <effect>
+                  <Glow level="0.62" />
+               </effect></Label>
+                <Button fx:id="opcion1Button" onAction="#verificarRespuesta" prefWidth="700.0" style="-fx-font-size: 20px;">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+                <Button fx:id="opcion2Button" onAction="#verificarRespuesta" prefWidth="700.0" style="-fx-font-size: 20px;">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+                <Button fx:id="opcion3Button" onAction="#verificarRespuesta" prefWidth="700.0" style="-fx-font-size: 20px;">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+                <Button fx:id="opcion4Button" onAction="#verificarRespuesta" prefWidth="700.0" style="-fx-font-size: 20px;">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+            </VBox>
+        </StackPane>
+
+        <!-- Comodines -->
+        <HBox layoutX="50.0" layoutY="500.0" spacing="20.0" AnchorPane.leftAnchor="200.0">
+            <Button fx:id="cincuentaButton" onAction="#comodin50" prefWidth="150.0" style="-fx-font-size: 16px;">
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+            <graphic>
+               <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../../../img/50.png" />
+                  </image>
+               </ImageView>
+            </graphic></Button>
+            <Button fx:id="apoyoButton" onAction="#usoComodin" prefWidth="150.0" style="-fx-font-size: 16px;">
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+            <graphic>
+               <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../../../img/apoyo.png" />
+                  </image>
+               </ImageView>
+            </graphic></Button>
+            <Button fx:id="cursoButton" onAction="#usoComodin" prefWidth="150.0" style="-fx-font-size: 16px;">
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+            <graphic>
+               <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../../../img/curso.png" />
+                  </image>
+               </ImageView>
+            </graphic></Button>
+        </HBox>
+
+        <!-- Pie de página - Temporizador y Resultado -->
+        <HBox layoutY="600.0" spacing="20.0" AnchorPane.leftAnchor="410.0">
+            <Label fx:id="tiempoLabel" style="-fx-font-size: 20px; -fx-text-fill: white;" text="TIEMPO" />
+        </HBox>
+      <VBox fx:id="preguntasVBox" layoutX="860.0" prefHeight="800.0" prefWidth="140.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="860.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="17.0" prefWidth="223.0" text="Pregunta" />
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </VBox>
+
+    </children>
+</AnchorPane>

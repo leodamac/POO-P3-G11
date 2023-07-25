@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" prefHeight="300.0" prefWidth="365.0" spacing="20.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.poop3g11.VentanaPrincipalController">
+   <children>
+      <Label styleClass="titulo" text="Bienvenidos a Sistema de Apoyo Docente">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Label>
+      <Label text="Programa desarrollado para la materia de">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <Label text="Programación Orientada a Objetos POO">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <Label text="hecho por">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <Label text="Leonardo Macías y Angelo Espinosa">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <Label fx:id="terminoAcademicoLabel" text="2023-1">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+   </children>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+</VBox>

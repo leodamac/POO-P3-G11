@@ -9,11 +9,11 @@ import java.util.ArrayList;
 
 public class Reporte implements Comparable<Reporte>{
     private String materia;
-    private TerminoAcademico termino;
+    private TerminoAcademico terminoAcademico;
     private Paralelo paralelo;
     private String fecha;
     private Estudiante participante;
-    private int level;
+    private int nivel;
     private int tiempo;
     private int preguntasContestadas;
     private Comodin[] comodines;
@@ -21,13 +21,13 @@ public class Reporte implements Comparable<Reporte>{
     
     public Reporte(String fecha , Estudiante participante, int level, int tiempo, int preguntasContestadas, Comodin[] comodines, String premio, TerminoAcademico t , String cod, Paralelo p){
         this.fecha=fecha;
-        this.level=level;
+        this.nivel=level;
         this.participante=participante;
         this.premio=premio;
         this.preguntasContestadas=preguntasContestadas;
         this.tiempo=tiempo;
         this.comodines=comodines;
-        this.termino=t;
+        this.terminoAcademico=t;
         this.materia=cod;
         this.paralelo=p;
     }
@@ -37,18 +37,23 @@ public class Reporte implements Comparable<Reporte>{
     public Estudiante getParticipante(){
         return participante;
     }
-    public int getLevel(){
-        return level;
+    public int getNivel(){
+        return nivel;
     }
     public int getTiempo(){
         return tiempo;
     }
-    public int getpreguntasContestadas(){
+    public int getPreguntasContestadas(){
         return preguntasContestadas;
     }
     public Comodin[] getComodines(){
         return comodines;
     }
+    public String getComodinesUsados(){
+        String comodinesUsados = comodines[0].toString() + ", " + comodines[1].toString() + ", " + comodines[0].toString() ;
+        return comodinesUsados;
+    }
+    
     public String getPremio(){
         return premio;
     }
@@ -57,12 +62,16 @@ public class Reporte implements Comparable<Reporte>{
         return materia;
     }
 
-    public TerminoAcademico getT() {
-        return termino;
+    public TerminoAcademico getTerminoAcademico() {
+        return terminoAcademico;
     }
 
-    public Paralelo getP() {
+    public Paralelo getParalelo() {
         return paralelo;
+    }
+    
+    public void setFecha(String fecha){
+        this.fecha = fecha;
     }
     
     
@@ -78,7 +87,7 @@ public class Reporte implements Comparable<Reporte>{
     public String toString(){
         String comodinesUsados = comodines[0].toString() + " " + comodines[1].toString() + " " + comodines[0].toString() ;
 
-        return fecha + " " + participante.getNombre() + " " + level + " " + tiempo + " " + preguntasContestadas + " " + comodinesUsados + " " + premio;
+        return fecha + " " + participante.getNombre() + " " + nivel + " " + tiempo + " " + preguntasContestadas + " " + comodinesUsados + " " + premio;
     }
     @Override
     public int compareTo(Reporte otroReporte) { // En esta parte se ordenan el objeto segun la fecha 

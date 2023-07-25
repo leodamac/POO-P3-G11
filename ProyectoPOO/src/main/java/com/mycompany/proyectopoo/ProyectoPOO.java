@@ -376,7 +376,7 @@ public class ProyectoPOO {
         Paralelo paralelo = (Paralelo)(Menu.seleccionarObjeto(m.getParalelos(), sc));
         Collections.sort(reportes);
         for(Reporte r: reportes){
-            if (r.getP().equals(paralelo) && r.getMateria().equals(m.getCodigo()) && termino1.equals(r.getT()) ){      
+            if (r.getParalelo().equals(paralelo) && r.getMateria().equals(m.getCodigo()) && termino1.equals(r.getTerminoAcademico()) ){      
                 System.out.println(r);
             }
         }

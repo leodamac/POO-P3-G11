@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="borderPane" nodeOrientation="LEFT_TO_RIGHT" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="administrarPreguntasControllers.visualizarPreguntaController">
+   <top>
+      <Label text="Visualizar Preguntas" BorderPane.alignment="CENTER" styleClass="titulo">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Label>
+   </top>
+   <center>
+      <GridPane alignment="TOP_CENTER" prefHeight="278.0" prefWidth="1065.0">
+        <columnConstraints>
+          <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" maxWidth="282.0" minWidth="0.0" prefWidth="0.0" />
+            <ColumnConstraints hgrow="ALWAYS" maxWidth="1000.0" minWidth="10.0" prefWidth="251.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="173.0" minHeight="10.0" prefHeight="112.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label styleClass="titulo" fx:id="seleccionarMateriaLabel" alignment="TOP_RIGHT" contentDisplay="TOP" nodeOrientation="LEFT_TO_RIGHT" prefHeight="20.0" prefWidth="276.0" text="Preguntas" GridPane.rowIndex="1">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+            <Label styleClass="respuesta-correcta" alignment="TOP_RIGHT" contentDisplay="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefWidth="250.0" text="Respuesta Correcta" textFill="#49b963" GridPane.rowIndex="2">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font></Label>
+            <Label alignment="TOP_RIGHT" contentDisplay="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefWidth="250.0" text="Respuesta Incorrecta" GridPane.rowIndex="3">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+            <Label alignment="TOP_RIGHT" nodeOrientation="LEFT_TO_RIGHT" prefWidth="250.0" text="Respuesta Incorrecta" GridPane.rowIndex="4">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+            <ListView fx:id="preguntasListView" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="100.0" prefWidth="600.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS" />
+            <Label fx:id="respuesta1Label" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2">
+               <font>
+                  <Font size="15.0" />
+               </font></Label>
+            <Label fx:id="respuesta2Label" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3">
+               <font>
+                  <Font size="15.0" />
+               </font></Label>
+            <Label fx:id="respuesta3Label" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4">
+               <font>
+                  <Font size="15.0" />
+               </font></Label>
+            <Label fx:id="respuesta4Label" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5">
+               <font>
+                  <Font size="15.0" />
+               </font></Label>
+            <Label alignment="TOP_RIGHT" nodeOrientation="LEFT_TO_RIGHT" prefWidth="250.0" text="Respuesta Incorrecta" GridPane.rowIndex="5">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Button fx:id="salirButton" mnemonicParsing="false" onAction="#switchToAdministrarPreguntas" prefHeight="30.0" prefWidth="125.0" text="Salir" GridPane.columnIndex="1" GridPane.rowIndex="6">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+            <Label alignment="TOP_RIGHT" contentDisplay="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefWidth="250.0" text="Materia">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="seleccionarMateriaComboBox" prefWidth="250.0" GridPane.columnIndex="1" />
+         </children>
+      </GridPane>
+   </center>
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
+</BorderPane>

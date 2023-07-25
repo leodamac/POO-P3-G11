@@ -5,15 +5,11 @@ import academico.Paralelo;
 import academico.TerminoAcademico;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import juego.Pregunta;
 import personas.Estudiante;
 
@@ -267,10 +263,8 @@ public class Menu {
                 }
                 terminoAcademico.addMateria(materia);
             }
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            System.out.print(ex);
         }
     }
         

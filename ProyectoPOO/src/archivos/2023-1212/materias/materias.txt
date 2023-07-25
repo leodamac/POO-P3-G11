@@ -1,0 +1,3 @@
+codigo,nombre,nivel
+1,materia,1
+1,materia,1

@@ -19,7 +19,7 @@ public class Pregunta {
         this.respuesta2 = respuesta2;
         this.respuesta3 = respuesta3;
         this.respuesta4 = respuesta4;
-        this.respuestas = revolverRespuestas();
+        this.respuestas = getRespuestasMezcladas();
         this.nivel = nivel;
     }
     
@@ -72,7 +72,7 @@ public class Pregunta {
     }
     
     //Cambia de lugar las respuestas para que sea aleatoria su posicion
-    public String[] revolverRespuestas(){
+    public String[] getRespuestasMezcladas(){
         String[] resp = {respuesta1, respuesta2, respuesta3, respuesta4};
         ordenarAleatoriamente(resp);
         return resp;
@@ -80,7 +80,6 @@ public class Pregunta {
     
     //Ordena aleatoriamente un Array
     public void ordenarAleatoriamente(String[] array) {
-      
         Random random = new Random();
 
         for (int i = array.length - 1; i > 0; i--) {
@@ -124,7 +123,7 @@ public class Pregunta {
     
     @Override
     public String toString(){
-        String datos= this.enunciado + "\n A. " + respuestas[0] + "\n B. "+ respuestas[1] + "\n C. " + respuestas[2] + "\n D. " + respuestas[3] + "\n";
+        String datos= this.enunciado;
         return datos;
     }
     
