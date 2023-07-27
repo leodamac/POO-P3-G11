@@ -18,7 +18,7 @@ import personas.Estudiante;
 
 public class ReporteController {
     @FXML TableView tableView;
-    Comodin[] comodines = {new Comodin("Pene"), new Comodin("Pene"), new Comodin("Pene")};
+    Comodin[] comodines = {new Comodin("50/50"), new Comodin("Apoyo"), new Comodin("Público")};
     @FXML
     private void initialize(){
 

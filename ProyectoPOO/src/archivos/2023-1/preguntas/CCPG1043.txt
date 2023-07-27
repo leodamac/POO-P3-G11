@@ -10,7 +10,7 @@ Respuestas:
 A) final
 B) const
 C) static
-D) constant
+D) constantPregunta: 
 
 Pregunta: ¿Qué tipo de dato se utiliza para representar un valor verdadero o falso en Java?
 Respuestas:

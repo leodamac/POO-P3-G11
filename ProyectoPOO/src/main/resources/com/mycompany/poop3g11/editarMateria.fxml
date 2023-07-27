@@ -24,7 +24,7 @@
       <RowConstraints maxHeight="266.0" minHeight="10.0" prefHeight="223.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Button fx:id="agregarButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="305.0" text="Editar" GridPane.rowIndex="5">
+      <Button fx:id="agregarButton" onAction="#editarMateria" mnemonicParsing="false" prefHeight="25.0" prefWidth="305.0" text="Editar" GridPane.rowIndex="5">
          <font>
             <Font size="14.0" />
          </font>
