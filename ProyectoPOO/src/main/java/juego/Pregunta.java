@@ -1,8 +1,9 @@
 package juego;
 
+import java.io.Serializable;
 import java.util.Random;
 
-public class Pregunta {
+public class Pregunta implements Serializable{
     private String enunciado;
     private String respuestaCorrecta;
     private String respuesta1;
@@ -11,6 +12,7 @@ public class Pregunta {
     private String respuesta4;
     private String[] respuestas;
     private int nivel;
+    private static final long serialVersionUID = 1L;
     
     public Pregunta(String enunciado, String respuesta1, String respuesta2, String respuesta3, String respuesta4, int nivel) {
         this.enunciado = enunciado;

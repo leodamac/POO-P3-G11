@@ -5,6 +5,7 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -21,9 +22,9 @@ public class MainController {
     Reporte
     Salir
     */
-    @FXML private Button mostrarMasButton, configuracionButton, nuevoJuegoButton, reporteButton, salirButton, cerrarButton;
+    @FXML private Button mostrarMasButton, configuracionButton, nuevoJuegoButton, reporteButton, salirButton, cerrarButton, minimizeButton, maxButton;
     @FXML private VBox opcionesVBox;
-    @FXML private ImageView imageCerrarButton, imageMaxButton;
+    @FXML private ImageView imageCerrarButton, imageMaxButton, imageMinimizeButton;
     @FXML private AnchorPane anchorPane;
     
     
@@ -32,7 +33,8 @@ public class MainController {
     private double yOffset = 0;//usada la cordenada y para mover la ventana 
     // Cambia la ventana al menú de configuraciones
     @FXML void initialize(){
-
+        
+        agregarTooltipBotones();
         // Se registra un manejador de eventos para cuando se presiona el ratón sobre el AnchorPane
         anchorPane.setOnMousePressed (e -> {
           // Se obtiene la ventana actual
@@ -54,6 +56,18 @@ public class MainController {
         opcionesVBox.setOnMouseDragged (e -> {
           setPosicionVentana(e);
         });  
+    }
+    
+    //Agrega mensajes a los botones cuando se deja el puntero del mouse encima
+    private void agregarTooltipBotones(){
+        mostrarMasButton.setTooltip(new Tooltip("Mostrar más"));
+        configuracionButton.setTooltip(new Tooltip("Configuración"));
+        nuevoJuegoButton.setTooltip(new Tooltip("Nuevo Juego"));
+        reporteButton.setTooltip(new Tooltip("Reporte"));
+        salirButton.setTooltip(new Tooltip("Salir"));
+        cerrarButton.setTooltip(new Tooltip("Cerrar"));
+        minimizeButton.setTooltip(new Tooltip("Minimizar"));
+        maxButton.setTooltip(new Tooltip("Cambiar tamaño de la ventana"));
     }
     
     //Se obtiene la posicion del Mouse
@@ -118,6 +132,26 @@ public class MainController {
     @FXML
     private void onMouseUnpressedButtonCerrar(){
         imageCerrarButton.setImage(new Image(getClass().getResourceAsStream("/img/cerrar_rojo.png")));
+    }
+    // se activa el evento cuando entra en el boton de cerrar
+    @FXML
+    private void onMouseEnteredButtonMinimize(){
+        imageMinimizeButton.setImage(new Image(getClass().getResourceAsStream("/img/minimize_azul.png")));
+    }
+    // se activa el evento cuando sale del boton de cerrar
+    @FXML
+    private void onMouseExitedButtonMinimize(){
+        imageMinimizeButton.setImage(new Image(getClass().getResourceAsStream("/img/minimize.png")));
+    }
+    // se activa el evento cuando presiona el boton de cerrar
+    @FXML
+    private void onMousePressedButtonMinimize(){
+        imageMinimizeButton.setImage(new Image(getClass().getResourceAsStream("/img/minimize_pressed.png")));
+    }
+    // se activa el evento cuando deja de presionar el boton de cerrar
+    @FXML
+    private void onMouseUnpressedButtonMinimize(){
+        imageMinimizeButton.setImage(new Image(getClass().getResourceAsStream("/img/minimize_azul.png")));
     }
     // se activa el evento cuando entra en el boton de maximizar
     @FXML
@@ -187,12 +221,22 @@ public class MainController {
             reporteButton.setText("Reporte");
             salirButton.setText("Salir");
         }
+        
+        
+        
         mostrarMasButton.setLayoutX(ancho);
         opcionesVBox.setMinWidth(ancho);
         configuracionButton.setMinWidth(ancho);
         nuevoJuegoButton.setMinWidth(ancho);
         reporteButton.setMinWidth(ancho);
         salirButton.setMinWidth(ancho);
+    }
+    
+    //Minimiza la ventana
+    @FXML
+    private void minimizarVentana(Event event){
+        Stage s = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        s.setIconified(true);
     }
     
 }

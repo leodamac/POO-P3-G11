@@ -1,14 +1,16 @@
 package academico;
 import academico.Materia;
 import com.mycompany.proyectopoo.Menu;
+import java.io.Serializable;
 
 import java.util.ArrayList;
 
-public class TerminoAcademico implements Comparable <TerminoAcademico>{
+public class TerminoAcademico implements Comparable <TerminoAcademico>, Serializable{
 
     private int año;
     private int termino;
     private ArrayList<Materia> materias;
+    private static final long serialVersionUID = 1L;
 
     public TerminoAcademico(int año, int termino){
         this.año = año;

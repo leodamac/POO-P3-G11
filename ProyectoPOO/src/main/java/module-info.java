@@ -1,6 +1,7 @@
 module com.mycompany.poop3g11 {
     requires javafx.controls;
     requires javafx.fxml;
+    requires javafx.media;
     requires java.base;
 
     opens com.mycompany.poop3g11 to javafx.fxml;

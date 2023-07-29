@@ -1,8 +1,11 @@
 
 package personas;
 
-public class Persona {
+import java.io.Serializable;
+
+public class Persona implements Serializable{
     private String nombre;
+    private static final long serialVersionUID = 1L;
     
     public Persona(String nombre){
         this.nombre = nombre;

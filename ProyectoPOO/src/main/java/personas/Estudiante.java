@@ -1,9 +1,12 @@
 package personas;
 
-public class Estudiante extends Persona{
+import java.io.Serializable;
+
+public class Estudiante extends Persona implements Serializable{
     private String matricula;
     private String correo;
     private int ganancias;
+    private static final long serialVersionUID = 1L;
     
     public Estudiante(String nombre, String matricula, String correo){
         super(nombre);

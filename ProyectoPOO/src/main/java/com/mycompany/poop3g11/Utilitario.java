@@ -26,14 +26,14 @@ public class Utilitario {
         return cadena.matches("-?\\d+");
     }
     
-    public static void mostrarPopUp(String mensaje, Event event){
+    public static void mostrarPopUp(String mensaje, Stage stage){
         // crear un nuevo Stage para el pop up
         Stage popUp = new Stage();
         popUp.initStyle(StageStyle.UTILITY);
         // hacer que el pop up sea modal, es decir, que bloquee el acceso a la ventana principal
         popUp.initModality(Modality.APPLICATION_MODAL);
         // hacer que el pop up sea hijo de la ventana principal
-        popUp.initOwner((Stage) ((Node) event.getSource()).getScene().getWindow());
+        popUp.initOwner(stage);
         // crear un label con un mensaje para el pop up
         Label lblMensaje = new Label(mensaje);
         // crear un botón que cierra el pop up
@@ -51,6 +51,10 @@ public class Utilitario {
         popUp.setScene(escena);
         // mostrar el pop up
         popUp.show();
+    }
+    
+    public static void mostrarPopUp(String mensaje, Event event){
+        mostrarPopUp(mensaje, (Stage) ((Node) event.getSource()).getScene().getWindow());
     }
     
     public static void verificarSiExisteTerminoAcademico(Event event, String year, String termino, String mensaje){

@@ -3,11 +3,10 @@ package juego;
 import java.time.*;
 import academico.TerminoAcademico;
 import academico.Paralelo;
+import java.io.Serializable;
 import personas.Estudiante;
-import java.util.ArrayList;
 
-
-public class Reporte implements Comparable<Reporte>{
+public class Reporte implements Comparable<Reporte>, Serializable{
     private String materia;
     private TerminoAcademico terminoAcademico;
     private Paralelo paralelo;
@@ -18,6 +17,8 @@ public class Reporte implements Comparable<Reporte>{
     private int preguntasContestadas;
     private Comodin[] comodines;
     private String premio;
+    private String comodinesUsados;
+    private static final long serialVersionUID = 1L;
     
     public Reporte(String fecha , Estudiante participante, int level, int tiempo, int preguntasContestadas, Comodin[] comodines, String premio, TerminoAcademico t , String cod, Paralelo p){
         this.fecha=fecha;
@@ -50,7 +51,7 @@ public class Reporte implements Comparable<Reporte>{
         return comodines;
     }
     public String getComodinesUsados(){
-        String comodinesUsados = comodines[0].toString() + ", " + comodines[1].toString() + ", " + comodines[0].toString() ;
+        comodinesUsados = comodines[0].toString() + ", " + comodines[1].toString() + ", " + comodines[2].toString() ;
         return comodinesUsados;
     }
     

@@ -4,6 +4,7 @@ import academico.Materia;
 import academico.Paralelo;
 import academico.TerminoAcademico;
 import com.mycompany.proyectopoo.Menu;
+import java.io.FileOutputStream;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -38,13 +40,16 @@ public class App extends Application {
     private static Materia materia;
     private static Paralelo paralelo;
     private static Reporte reporte;
+    private static String premio;
     private static int YEAR = 2023;
+    private static ArrayList<Reporte> reportes;
+    
 
     @Override
     public void start(Stage stage) throws IOException {
         cargarTerminosAcademicos();
         Menu.cargarDatosIniciales(terminoAcademico);
-        
+        reportes = new ArrayList();     
         stage.getIcons().add(new Image(getClass().getResourceAsStream("/img/icono.png")));
         
         scene = new Scene(loadFXML("main"), 1280, 960);
@@ -135,6 +140,24 @@ public class App extends Application {
         reporte = nuevoReporte;
     }
     
+    public static void setReportes(ArrayList<Reporte> nuevoReportes){
+        reportes = nuevoReportes;
+    }
+    
+    public static void agregarReportes(Reporte nuevoReporte){
+        reportes.add(nuevoReporte);
+        try(ObjectOutputStream objectOutput = new ObjectOutputStream (new FileOutputStream("src/archivos/" + terminoAcademico + "/reportes.dat"))){
+            objectOutput.writeObject(reportes);
+            objectOutput.flush();
+        }catch(Exception e){
+            System.out.println(e);
+        }
+    }
+    
+    public static void setPremio(String nuevoPremio){
+        premio = nuevoPremio;
+    }
+    
     public static TerminoAcademico getTerminoAcademico(){
         return terminoAcademico;
     }
@@ -171,4 +194,11 @@ public class App extends Application {
         return reporte;
     }
     
+    public static ArrayList<Reporte> getReportes(){
+        return reportes;
+    }
+    
+    public static String getPremio(){
+        return premio;
+    }
 }

@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import personas.Estudiante;
 
@@ -30,7 +31,7 @@ public class NuevoJuegoController{
     @FXML private ComboBox<Estudiante> seleccionarCompañeroApoyoComboBox;
     @FXML private CheckBox materiaCheckBox, paraleloCheckBox, estudianteCheckBox, compañeroApoyoCheckBox;
     @FXML private Button iniciarButton;
-    @FXML private BorderPane borderPane;
+    @FXML private TextField premioField;
     
     private Materia materia;
     private Paralelo paralelo;
@@ -107,6 +108,7 @@ public class NuevoJuegoController{
     // Cambia a la ventana del juego
     @FXML
     private void switchToJuego() throws IOException {
+        App.setPremio(premioField.getText());
         App.setPreguntas(materia.getPreguntas());
         App.cargarArchivoFXML("juego");
     }    

@@ -1,13 +1,15 @@
 package academico;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import personas.Estudiante;
 
-public class Paralelo {
+public class Paralelo implements Serializable{
     private Materia materia;
     private int numero;
     private ArrayList<Estudiante> estudiantes;
     private String url;
+    private static final long serialVersionUID = 1L;
 
     public Paralelo(Materia materia, int numero, String url) {
         this.materia = materia;

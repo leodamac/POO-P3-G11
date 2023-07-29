@@ -1,15 +1,17 @@
 package academico;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import juego.Pregunta;
 
-public class Materia {
+public class Materia implements Serializable{
     private String codigo;
     private String nombre;
     private ArrayList<Paralelo> paralelos;
     private ArrayList<ArrayList<Pregunta>> preguntas;
     private boolean todosLosNivelesTienenPreguntas;
     private int nivel;
+    private static final long serialVersionUID = 1L;
 
     public Materia(String codigo, String nombre, int nivel) {
         this.codigo = codigo;

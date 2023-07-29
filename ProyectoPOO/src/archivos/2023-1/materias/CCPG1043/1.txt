@@ -1,0 +1,4 @@
+MATRICULA	NOMBRE_ESTUDIANTE	Email
+1	Estudiante1	email@correo.com
+2	Estudiante2	email@correo.com
+3	Estudiante3	email@correo.com

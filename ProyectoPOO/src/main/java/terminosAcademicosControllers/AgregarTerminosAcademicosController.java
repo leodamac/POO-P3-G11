@@ -7,12 +7,16 @@ import com.mycompany.poop3g11.Utilitario;
 import com.mycompany.proyectopoo.Menu;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import juego.Reporte;
 
 
 public class AgregarTerminosAcademicosController {
@@ -48,7 +52,7 @@ public class AgregarTerminosAcademicosController {
                     Utilitario.mostrarPopUp("¡ERROR!\nTérmino Académico ya EXISTE", event);
                 }else{
                     App.getTerminosAcademicos().add(terminoAcademico);
-                    //Si no exite muestra un mensaje de éxito y crea el directorio
+                    //Muestra mensaje de exito
                     Utilitario.mostrarPopUp("Término Académico añadido con ÉXITO!", event);
                     archive.mkdir();//crea una carpeta con el nombre del termino academico
                     File materias = new File("src/archivos/"+terminoAcademico.toString()+"/materias");
@@ -62,8 +66,26 @@ public class AgregarTerminosAcademicosController {
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
+                    //crea el archivo reportes.dt
+                    try(ObjectOutputStream file = new ObjectOutputStream(new FileOutputStream ("src/archivos/" + terminoAcademico + "/reportes.dat"))){
+                        file.writeObject(new ArrayList<Reporte>());
+                    }catch(Exception e){
+                        System.out.println("Cargar Reportes "+e);
+                    }
+                    /*File archivoReporte = new File("src/archivos/"+terminoAcademico.toString()+"/reportes.dat");
+                    try {
+                        archivoReporte.createNewFile();
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }*/
+                    //crea el directorio preguntas
                     File preguntas = new File("src/archivos/"+terminoAcademico.toString()+"/preguntas");
                     preguntas.mkdir();
+                    try {
+                        App.cargarArchivoFXML("administrarTerminosAcademicos");
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
                     
                 }
             }else{

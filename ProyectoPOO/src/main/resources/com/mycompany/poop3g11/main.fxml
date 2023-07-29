@@ -50,6 +50,18 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
+                  <Button fx:id="minimizeButton" accessibleHelp="Minimizar" accessibleText="Minimizar" maxHeight="32.0" maxWidth="32.0" minHeight="32.0" minWidth="32.0" mnemonicParsing="false" onAction="#minimizarVentana" onMouseEntered="#onMouseEnteredButtonMinimize" onMouseExited="#onMouseExitedButtonMinimize" onMousePressed="#onMousePressedButtonMinimize" onMouseReleased="#onMouseUnpressedButtonMinimize" prefHeight="32.0" prefWidth="32.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="64.0" AnchorPane.topAnchor="0.0">
+                     <graphic>
+                        <ImageView fx:id="imageMinimizeButton" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../img/minimize.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
                </children>
             </AnchorPane>
          </children>

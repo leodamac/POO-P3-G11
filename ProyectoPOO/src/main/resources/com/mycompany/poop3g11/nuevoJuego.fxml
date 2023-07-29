@@ -6,6 +6,7 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -14,7 +15,7 @@
 
 <BorderPane fx:id="borderPane" nodeOrientation="LEFT_TO_RIGHT" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.poop3g11.NuevoJuegoController">
    <top>
-      <Label text="Iniciar Nuevo Juego" BorderPane.alignment="CENTER" styleClass="titulo">
+      <Label styleClass="titulo" text="Iniciar Nuevo Juego" BorderPane.alignment="CENTER">
          <font>
             <Font name="System Bold" size="15.0" />
          </font></Label>
@@ -28,6 +29,7 @@
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="379.0" minWidth="10.0" prefWidth="88.0" />
         </columnConstraints>
         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -35,33 +37,33 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label fx:id="seleccionarMateriaLabel" alignment="TOP_RIGHT" contentDisplay="TOP" nodeOrientation="LEFT_TO_RIGHT" prefWidth="250.0" text="Seleccione la materia" GridPane.columnIndex="1">
+            <Label fx:id="seleccionarMateriaLabel" alignment="TOP_RIGHT" contentDisplay="TOP" nodeOrientation="LEFT_TO_RIGHT" prefWidth="250.0" text="Seleccione la materia" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
                   <Font size="14.0" />
                </font></Label>
-            <Label alignment="TOP_RIGHT" contentDisplay="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefWidth="250.0" text="Seleccione el paralelo" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Label alignment="TOP_RIGHT" contentDisplay="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefWidth="250.0" text="Seleccione el paralelo" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <font>
                   <Font size="14.0" />
                </font></Label>
-            <Label alignment="TOP_RIGHT" contentDisplay="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefWidth="250.0" text="Seleccione el estudiante" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <Label alignment="TOP_RIGHT" contentDisplay="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefWidth="250.0" text="Seleccione el estudiante" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <font>
                   <Font size="14.0" />
                </font></Label>
-            <Label alignment="TOP_RIGHT" nodeOrientation="LEFT_TO_RIGHT" prefWidth="250.0" text="Seleccione el compañero de apoyo" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <Label alignment="TOP_RIGHT" nodeOrientation="LEFT_TO_RIGHT" prefWidth="250.0" text="Seleccione el compañero de apoyo" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <font>
                   <Font size="14.0" />
                </font></Label>
-            <CheckBox fx:id="materiaCheckBox" alignment="CENTER" contentDisplay="CENTER" disable="true" mnemonicParsing="false" GridPane.columnIndex="3" />
-            <CheckBox fx:id="paraleloCheckBox" disable="true" mnemonicParsing="false" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-            <CheckBox fx:id="estudianteCheckBox" disable="true" mnemonicParsing="false" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-            <CheckBox fx:id="compañeroApoyoCheckBox" disable="true" mnemonicParsing="false" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-            <ComboBox fx:id="seleccionarMateriaComboBox" prefWidth="250.0" GridPane.columnIndex="2" />
-            <ComboBox fx:id="seleccionarParaleloComboBox" prefWidth="250.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <ComboBox fx:id="seleccionarEstudianteComboBox" prefWidth="250.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <ComboBox fx:id="seleccionarCompañeroApoyoComboBox" prefWidth="250.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-            <BorderPane GridPane.columnIndex="2" GridPane.rowIndex="4">
+            <CheckBox fx:id="materiaCheckBox" alignment="CENTER" contentDisplay="CENTER" disable="true" mnemonicParsing="false" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <CheckBox fx:id="paraleloCheckBox" disable="true" mnemonicParsing="false" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <CheckBox fx:id="estudianteCheckBox" disable="true" mnemonicParsing="false" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+            <CheckBox fx:id="compañeroApoyoCheckBox" disable="true" mnemonicParsing="false" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+            <ComboBox fx:id="seleccionarMateriaComboBox" prefWidth="250.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <ComboBox fx:id="seleccionarParaleloComboBox" prefWidth="250.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <ComboBox fx:id="seleccionarEstudianteComboBox" prefWidth="250.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <ComboBox fx:id="seleccionarCompañeroApoyoComboBox" prefWidth="250.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <BorderPane GridPane.columnIndex="2" GridPane.rowIndex="5">
                <left>
-                  <Button fx:id="iniciarButton" onAction="#switchToJuego"  disable="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="125.0" text="Iniciar" BorderPane.alignment="CENTER">
+                  <Button fx:id="iniciarButton" disable="true" mnemonicParsing="false" onAction="#switchToJuego" prefHeight="25.0" prefWidth="125.0" text="Iniciar" BorderPane.alignment="CENTER">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -79,6 +81,12 @@
                      </cursor></Button>
                </right>
             </BorderPane>
+            <Label fx:id="seleccionarMateriaLabel1" alignment="TOP_RIGHT" contentDisplay="TOP" nodeOrientation="LEFT_TO_RIGHT" prefWidth="250.0" text="Ingrese el premio" GridPane.columnIndex="1">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="premioField" GridPane.columnIndex="2" />
          </children>
       </GridPane>
    </center>
