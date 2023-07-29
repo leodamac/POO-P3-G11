@@ -74,11 +74,7 @@ public class Paralelo implements Serializable{
             return false;
         }
 
-        if (this.materia != otro.getMateria()) {
-            return false;
-        }
-
-        return true;
+        return this.materia.equals(otro.getMateria());
     }
     
     @Override

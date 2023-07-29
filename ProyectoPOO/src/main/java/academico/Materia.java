@@ -105,4 +105,17 @@ public class Materia implements Serializable{
     public String toString(){
         return nombre;
     }
+    
+    @Override
+    public boolean equals(Object objeto){
+        if(objeto == null){
+            return false;
+        }
+        if(objeto.getClass() != this.getClass()) {
+            return false;
+        }else{
+            final Materia otro = (Materia) objeto;
+            return this.nombre.equals(otro.getNombre());
+        }
+    }
 }

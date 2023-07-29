@@ -4,10 +4,8 @@ import academico.Materia;
 import academico.Paralelo;
 import academico.TerminoAcademico;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javafx.collections.FXCollections;
@@ -39,35 +37,56 @@ public class ReporteController {
             terminoAcademico = terminoAcademicoComboBox.getValue();
             cargarMaterias();
             cargarReportes(terminoAcademico);
+            materiaComboBox.getSelectionModel().clearSelection();
+            paraleloComboBox.getSelectionModel().clearSelection();
+            
         });
         
         materiaComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            materia = materiaComboBox.getValue();
-            cargarParalelos();
-            
+                materia = materiaComboBox.getValue();
+                removerMateriasReporte();
+                cargarParalelos();
+                paraleloComboBox.getSelectionModel().clearSelection();
+           
         });
 
         
         paraleloComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            paralelo = paraleloComboBox.getValue();
-            removerParaleloReporte();
-        });    
+                paralelo = paraleloComboBox.getValue();
+                removerParalelosReporte();
+        });
+
     }
     
-    private void removerParaleloReporte(){
+    //filtra la materia seleccionada en el comboBox y solo muestra los reportes de ese paralelo
+    private void removerMateriasReporte(){
         cargarReportes(terminoAcademico);
         Iterator<Reporte> iterator = reportes.iterator();
-        boolean fin = false;
-        while(iterator.hasNext() && !fin){
+        ArrayList<Reporte> rep = new ArrayList();
+        while(iterator.hasNext()){
             Reporte r = iterator.next();
-            if(!r.getParalelo().equals(paralelo)){
-                System.out.println("Removido " + paralelo);
-                reportes.remove(r);
-                data = FXCollections.observableArrayList(reportes);
-                tableView.setItems(data);
-                fin = true;
+            if(r.getMateria().equals(materia.getCodigo())){
+                rep.add(r);
             }
         }
+        data = FXCollections.observableArrayList(rep);
+        tableView.setItems(data);
+        tableView.refresh();
+    }
+    
+    //filtra el paralelo seleccionado en el comboBox y solo muestra los reportes de ese paralelo
+    private void removerParalelosReporte(){
+        cargarReportes(terminoAcademico);
+        Iterator<Reporte> iterator = reportes.iterator();
+        ArrayList<Reporte> rep = new ArrayList();
+        while(iterator.hasNext()){
+            Reporte r = iterator.next();
+            if(r.getParalelo().equals(paralelo)){
+                rep.add(r);
+            }
+        }
+        data = FXCollections.observableArrayList(rep);
+        tableView.setItems(data);
         tableView.refresh();
     }   
     
@@ -79,14 +98,16 @@ public class ReporteController {
     
     private void cargarMaterias(){
         ArrayList<Materia> materias = terminoAcademico.getMaterias();
-        ObservableList<Materia> observableList = FXCollections.observableArrayList(materias);
+        ObservableList observableList = FXCollections.observableArrayList(materias);
         materiaComboBox.setItems(observableList);
     }
     
     private void cargarParalelos(){
-        ArrayList<Paralelo> arrayList = materia.getParalelos();
-        ObservableList<Paralelo> observableList = FXCollections.observableArrayList(arrayList);
-        paraleloComboBox.setItems(observableList);
+        if(materia != null){
+            ArrayList<Paralelo> arrayList = materia.getParalelos();
+            ObservableList observableList = FXCollections.observableArrayList(arrayList);
+            paraleloComboBox.setItems(observableList);
+        }
     }
         
     
