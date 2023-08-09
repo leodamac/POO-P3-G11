@@ -39,6 +39,7 @@ public class ReporteController {
             cargarReportes(terminoAcademico);
             materiaComboBox.getSelectionModel().clearSelection();
             paraleloComboBox.getSelectionModel().clearSelection();
+            paraleloComboBox.getItems().clear();
             
         });
         
@@ -62,15 +63,12 @@ public class ReporteController {
     private void removerMateriasReporte(){
         cargarReportes(terminoAcademico);
         Iterator<Reporte> iterator = reportes.iterator();
-        ArrayList<Reporte> rep = new ArrayList();
         while(iterator.hasNext()){
             Reporte r = iterator.next();
-            if(r.getMateria().equals(materia.getCodigo())){
-                rep.add(r);
+            if(!r.getMateria().equals(materia.getCodigo())){
+                tableView.getItems().remove(r);
             }
         }
-        data = FXCollections.observableArrayList(rep);
-        tableView.setItems(data);
         tableView.refresh();
     }
     
@@ -78,15 +76,13 @@ public class ReporteController {
     private void removerParalelosReporte(){
         cargarReportes(terminoAcademico);
         Iterator<Reporte> iterator = reportes.iterator();
-        ArrayList<Reporte> rep = new ArrayList();
         while(iterator.hasNext()){
             Reporte r = iterator.next();
-            if(r.getParalelo().equals(paralelo)){
-                rep.add(r);
+            if(!r.getParalelo().equals(paralelo)){
+                tableView.getItems().remove(r);
             }
         }
-        data = FXCollections.observableArrayList(rep);
-        tableView.setItems(data);
+
         tableView.refresh();
     }   
     

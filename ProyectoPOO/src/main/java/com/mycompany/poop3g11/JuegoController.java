@@ -19,6 +19,8 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -42,13 +44,14 @@ public class JuegoController{
     int tiempo = 0;
     Comodin[] comodines;
     ArrayList<Reporte> reportes;
-    boolean finalizoElJuego = false;
     Pregunta pregunta;
     @FXML Label preguntaLabel, tiempoLabel;
     @FXML Button opcion1Button, opcion2Button, opcion3Button, opcion4Button, cincuentaButton, apoyoButton, cursoButton;
     @FXML VBox preguntasVBox;
+    @FXML ImageView sonidoImageView;
     MediaPlayer mediaPlayer;
     SimpleBooleanProperty booleano = new SimpleBooleanProperty(false);
+    boolean is_sonido_on = false;
 
     //Inicia los valers caargando el tiempo desde 60, el banco de preguntas y la pregunta que se mostrará en pantalla y finalmente carga la lista de reporte para cuando finalice el juego se cree un nuevo reporte
     @FXML
@@ -62,31 +65,35 @@ public class JuegoController{
     @FXML
     private void reproducirMusica(){
         File file = new File("src/main/resources/musica/quien.mp3");
+        if (is_sonido_on){
+            is_sonido_on = false;
+            sonidoImageView.setImage(new Image(getClass().getResourceAsStream("/img/sin_sonido.png")));
+            mediaPlayer.stop();
+        }else{
+            is_sonido_on = true;
+            sonidoImageView.setImage(new Image(getClass().getResourceAsStream("/img/con_sonido.png")));
+            // Verificar si se seleccionó un archivo
+            if (file != null) {
 
-        // Verificar si se seleccionó un archivo
-        if (file != null) {
-            Media media = new Media(file.toURI().toString());
-            //System.out.print(file.getPath());
+                Media media = new Media(file.toURI().toString());
+                //System.out.print(file.getPath());
 
-            // Crear un objeto MediaPlayer con el objeto Media
-            mediaPlayer = new MediaPlayer(media);
+                // Crear un objeto MediaPlayer con el objeto Media
+                mediaPlayer = new MediaPlayer(media);
 
-            // Establecer el número de ciclos a infinito
-            mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+                // Establecer el número de ciclos a infinito
+                mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
 
-            // Reproducir el audio en bucle
-            mediaPlayer.play();
-        }
-        
+                // Reproducir el audio en bucle
+                mediaPlayer.play();
+            }
+        }  
     }
     
     //Carga los reportes del termino académico configurado
     private void CargarReportes(){
         try(ObjectInputStream objectStream = new ObjectInputStream(new FileInputStream("src/archivos/" + App.getTerminoAcademico() +"/reportes.dat"))){
-            Object objeto;
-            //while((objeto = objectStream.readObject()) != null){
-                App.setReportes((ArrayList<Reporte>)objectStream.readObject());
-            //}
+            App.setReportes((ArrayList<Reporte>)objectStream.readObject());
             reportes = App.getReportes();
             
         }catch(Exception e){
@@ -185,12 +192,24 @@ public class JuegoController{
             timeline.stop();
             generarReporte();
         }
-        finalizarJuego();
+        finalizarJuego(event);
     }
     
     private void finalizarJuego(){
         if (booleano.get()){
             desabilitarTodosLosBotones();
+            try {
+                App.cargarArchivoFXML("nuevoJuego");
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+    
+    private void finalizarJuego(Event event){
+        if (booleano.get()){
+            desabilitarTodosLosBotones();
+            Utilitario.mostrarPopUp(event);
             try {
                 App.cargarArchivoFXML("nuevoJuego");
             } catch (IOException ex) {

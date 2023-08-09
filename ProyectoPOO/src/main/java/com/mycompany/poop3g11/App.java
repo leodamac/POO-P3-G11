@@ -42,8 +42,7 @@ public class App extends Application {
     private static Reporte reporte;
     private static String premio;
     private static int YEAR = 2023;
-    private static ArrayList<Reporte> reportes;
-    
+    private static ArrayList<Reporte> reportes;    
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -52,7 +51,7 @@ public class App extends Application {
         reportes = new ArrayList();     
         stage.getIcons().add(new Image(getClass().getResourceAsStream("/img/icono.png")));
         
-        scene = new Scene(loadFXML("main"), 1280, 960);
+        scene = new Scene(loadFXML("main"), 640, 480);
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setScene(scene);
         cargarVentanaPrincipal();
@@ -118,13 +117,26 @@ public class App extends Application {
         jugador = estudianteJugador;
     }
     
-    public static void setPreguntas(ArrayList<ArrayList<Pregunta>> preguntasNivel){
+    public static void setPreguntas(ArrayList<ArrayList<Pregunta>> preguntasNivel, int preguntasNiveles){
         preguntasJuego = new ArrayList();
         for(ArrayList<Pregunta> preguntas: preguntasNivel){
-            Random rand = new Random();
-            // Obtiene un numero aleatorio 0 - size(Preguntas.nivel)
-            int n = rand.nextInt(preguntas.size());
-            preguntasJuego.add(preguntas.get(n));            
+            boolean salir = false;
+            if(preguntasNiveles <= preguntas.size()){
+                int adicionado = 0;
+                while(!salir){
+                    Random rand = new Random();
+                    // Obtiene un numero aleatorio 0 - size(Preguntas.nivel)
+                    int n = rand.nextInt(preguntas.size());
+                    if(!preguntasJuego.contains(preguntas.get(n))){
+                        preguntasJuego.add(preguntas.get(n));
+                        adicionado++;
+                    }
+                    
+                    if(adicionado == preguntasNiveles){
+                        salir = true;
+                    }
+                }
+            }
         }
     }
     

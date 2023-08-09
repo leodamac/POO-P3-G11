@@ -221,9 +221,7 @@ public class MainController {
             reporteButton.setText("Reporte");
             salirButton.setText("Salir");
         }
-        
-        
-        
+
         mostrarMasButton.setLayoutX(ancho);
         opcionesVBox.setMinWidth(ancho);
         configuracionButton.setMinWidth(ancho);

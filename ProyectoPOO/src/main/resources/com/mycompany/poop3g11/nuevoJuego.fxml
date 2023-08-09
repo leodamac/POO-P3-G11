@@ -69,7 +69,8 @@
                      </font>
                      <cursor>
                         <Cursor fx:constant="HAND" />
-                     </cursor></Button>
+                     </cursor>
+                  </Button>
                </left>
                <right>
                   <Button mnemonicParsing="false" onAction="#switchToVentanaPrincipal" prefHeight="25.0" prefWidth="125.0" text="Salir" BorderPane.alignment="CENTER">
@@ -78,15 +79,16 @@
                      </font>
                      <cursor>
                         <Cursor fx:constant="HAND" />
-                     </cursor></Button>
+                     </cursor>
+                  </Button>
                </right>
             </BorderPane>
-            <Label fx:id="seleccionarMateriaLabel1" alignment="TOP_RIGHT" contentDisplay="TOP" nodeOrientation="LEFT_TO_RIGHT" prefWidth="250.0" text="Ingrese el premio" GridPane.columnIndex="1">
+            <Label fx:id="nivelesLabel" alignment="TOP_RIGHT" contentDisplay="TOP" nodeOrientation="LEFT_TO_RIGHT" prefWidth="250.0" text="Ingrese las preguntas por niveles" GridPane.columnIndex="1">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="premioField" GridPane.columnIndex="2" />
+            <TextField fx:id="nivelesTextField" GridPane.columnIndex="2" />
          </children>
       </GridPane>
    </center>

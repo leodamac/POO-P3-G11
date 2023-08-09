@@ -9,6 +9,7 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -31,7 +32,7 @@ public class NuevoJuegoController{
     @FXML private ComboBox<Estudiante> seleccionarCompañeroApoyoComboBox;
     @FXML private CheckBox materiaCheckBox, paraleloCheckBox, estudianteCheckBox, compañeroApoyoCheckBox;
     @FXML private Button iniciarButton;
-    @FXML private TextField premioField;
+    @FXML private TextField nivelesTextField;
     
     private Materia materia;
     private Paralelo paralelo;
@@ -107,9 +108,14 @@ public class NuevoJuegoController{
     }
     // Cambia a la ventana del juego
     @FXML
-    private void switchToJuego() throws IOException {
-        App.setPremio(premioField.getText());
-        App.setPreguntas(materia.getPreguntas());
-        App.cargarArchivoFXML("juego");
+    private void switchToJuego(Event event) throws IOException {
+        int preguntasNivel = Integer.valueOf(nivelesTextField.getText());
+        try{
+            App.setPreguntas(materia.getPreguntas(), preguntasNivel);
+            App.cargarArchivoFXML("juego");
+        }catch(Exception e){
+            System.out.println(e);
+            Utilitario.mostrarPopUp("Error no hay suficientes preguntas por nivel", event);
+        }
     }    
 }
