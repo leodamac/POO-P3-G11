@@ -49,9 +49,9 @@ public class ingresarMateriaController {
             }else{
                 Utilitario.mostrarPopUp("Materia registrad con ÉXITO", event);
                 TerminoAcademico terminoAcademico = App.getTerminoAcademico();
-                String ruta = "src/archivos/"+terminoAcademico.toString()+"/materias/materias.txt";
+                String ruta = "archivos/"+terminoAcademico.toString()+"/materias/materias.txt";
                 agregarMateriaEnArchivo(ruta, materiaNueva);
-                File carpetaMateria = new File("src/archivos/"+terminoAcademico.toString()+"/materias/" + materiaNueva.getCodigo());
+                File carpetaMateria = new File("archivos/"+terminoAcademico.toString()+"/materias/" + materiaNueva.getCodigo());
                 carpetaMateria.mkdir();
                 materias.add(materiaNueva);
             }

@@ -92,7 +92,7 @@ public class JuegoController{
     
     //Carga los reportes del termino académico configurado
     private void CargarReportes(){
-        try(ObjectInputStream objectStream = new ObjectInputStream(new FileInputStream("src/archivos/" + App.getTerminoAcademico() +"/reportes.dat"))){
+        try(ObjectInputStream objectStream = new ObjectInputStream(new FileInputStream("archivos/" + App.getTerminoAcademico() +"/reportes.dat"))){
             App.setReportes((ArrayList<Reporte>)objectStream.readObject());
             reportes = App.getReportes();
             

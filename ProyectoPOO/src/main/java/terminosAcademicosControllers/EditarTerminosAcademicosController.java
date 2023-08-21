@@ -48,14 +48,14 @@ public class EditarTerminosAcademicosController {
             TerminoAcademico nuevoTerminoAcademico = new TerminoAcademico(Menu.convierteTxtAEntero(year), Menu.convierteTxtAEntero(termino));
             //muestra si los datos se agregaron correctamente
             if(nuevoTerminoAcademico.getAño() >= App.getYearActual()){
-                File nuevoArchive = new File("src/archivos/"+nuevoTerminoAcademico.toString());
+                File nuevoArchive = new File("archivos/"+nuevoTerminoAcademico.toString());
                 //Verifica que la ruta del termino academico exita
                 if(nuevoArchive.exists()){
                     //Si exite muestra un mensaje de error
                     Utilitario.mostrarPopUp("¡ERROR!\nTérmino Académico ya EXISTE", event);
                 }else{
                     //Si no exite muestra un mensaje de éxito y crea el directorio
-                    File archive = new File("src/archivos/"+terminoAcademico.toString());
+                    File archive = new File("archivos/"+terminoAcademico.toString());
                     archive.renameTo(nuevoArchive);
                     Utilitario.mostrarPopUp("Término Académico EDITADO con ÉXITO!", event);
                     terminoAcademico.setAño(nuevoTerminoAcademico.getAño());

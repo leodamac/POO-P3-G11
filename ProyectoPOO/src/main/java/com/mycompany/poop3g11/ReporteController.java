@@ -155,7 +155,7 @@ public class ReporteController {
     }
     
     private void cargarReportes(TerminoAcademico terminoAcademico){
-        try(ObjectInputStream file = new ObjectInputStream(new FileInputStream ("src/archivos/" + terminoAcademico + "/reportes.dat"))){
+        try(ObjectInputStream file = new ObjectInputStream(new FileInputStream ("archivos/" + terminoAcademico + "/reportes.dat"))){
             ArrayList<Reporte> r2 = (ArrayList<Reporte>)file.readObject();
             reportes = r2;
             data = FXCollections.observableArrayList(reportes);

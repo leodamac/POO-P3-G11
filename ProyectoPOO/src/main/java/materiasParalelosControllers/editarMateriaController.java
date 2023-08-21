@@ -42,15 +42,15 @@ public class editarMateriaController {
             materia.setNivel(Menu.convierteTxtAEntero(nivelesField.getText()));
             String materiaLinea= "";
             try {
-                FileReader materiaArchivo = new FileReader ("src/archivos/"+App.getTerminoAcademico()+"/materias/materias.txt");
+                FileReader materiaArchivo = new FileReader ("archivos/"+App.getTerminoAcademico()+"/materias/materias.txt");
                 BufferedReader leerMateria = new BufferedReader(materiaArchivo);
                 String linea;
                 while ((linea=leerMateria.readLine()) != null){
                     if (linea.contains(materia.getCodigo())){
-                        File archive = new File("src/archivos/"+App.getTerminoAcademico()+"/materias/"+materia.getCodigo());
+                        File archive = new File("archivos/"+App.getTerminoAcademico()+"/materias/"+materia.getCodigo());
                         materia.setCodigo(codigoField.getText());
                         materiaLinea += materia.getCodigo()+","+materia.getNombre()+","+materia.getNivel();  
-                        archive.renameTo(new File("src/archivos/"+App.getTerminoAcademico()+"/materias/"+materia.getCodigo()));
+                        archive.renameTo(new File("archivos/"+App.getTerminoAcademico()+"/materias/"+materia.getCodigo()));
                         Utilitario.mostrarPopUp("Editado con exito", event);
                         App.cargarArchivoFXML("administrarMateriasParalelos");
                     }
@@ -70,7 +70,7 @@ public class editarMateriaController {
             
             
             try{
-                FileWriter materiaArchivo = new FileWriter("src/archivos/"+App.getTerminoAcademico()+"/materias/materias.txt" , false);
+                FileWriter materiaArchivo = new FileWriter("archivos/"+App.getTerminoAcademico()+"/materias/materias.txt" , false);
                 BufferedWriter escribirMateria = new BufferedWriter(materiaArchivo);
                 escribirMateria.write(materiaLinea);
                 escribirMateria.close();

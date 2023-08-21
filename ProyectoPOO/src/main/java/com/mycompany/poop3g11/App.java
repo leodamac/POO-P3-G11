@@ -158,7 +158,7 @@ public class App extends Application {
     
     public static void agregarReportes(Reporte nuevoReporte){
         reportes.add(nuevoReporte);
-        try(ObjectOutputStream objectOutput = new ObjectOutputStream (new FileOutputStream("src/archivos/" + terminoAcademico + "/reportes.dat"))){
+        try(ObjectOutputStream objectOutput = new ObjectOutputStream (new FileOutputStream("archivos/" + terminoAcademico + "/reportes.dat"))){
             objectOutput.writeObject(reportes);
             objectOutput.flush();
         }catch(Exception e){

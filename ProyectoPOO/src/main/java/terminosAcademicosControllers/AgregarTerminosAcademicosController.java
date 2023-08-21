@@ -45,7 +45,7 @@ public class AgregarTerminosAcademicosController {
             TerminoAcademico terminoAcademico = new TerminoAcademico(Menu.convierteTxtAEntero(year), Menu.convierteTxtAEntero(termino));
             //muestra si los datos se agregaron correctamente
             if(terminoAcademico.getAño() >= App.getYearActual()){
-                File archive = new File("src/archivos/"+terminoAcademico.toString());
+                File archive = new File("archivos/"+terminoAcademico.toString());
                 //Verifica que la ruta del termino academico exita
                 if(archive.exists()){
                     //Si exite muestra un mensaje de error
@@ -55,31 +55,25 @@ public class AgregarTerminosAcademicosController {
                     //Muestra mensaje de exito
                     Utilitario.mostrarPopUp("Término Académico añadido con ÉXITO!", event);
                     archive.mkdir();//crea una carpeta con el nombre del termino academico
-                    File materias = new File("src/archivos/"+terminoAcademico.toString()+"/materias");
+                    File materias = new File("archivos/"+terminoAcademico.toString()+"/materias");
                     //crea una carpeta llamada materias en donde van a ser creadas nuevas carpetas con el codigo de la materia y dentro estaran los paralelos con las listas de alumnos
                     materias.mkdir();
                     //crea un archivo txt con las infomaciones de las materias
-                    File archivoMaterias = new File("src/archivos/"+terminoAcademico.toString()+"/materias/materias.txt");
-                    agregarCabeceraAMaterias("src/archivos/"+terminoAcademico.toString()+"/materias/materias.txt");
+                    File archivoMaterias = new File("archivos/"+terminoAcademico.toString()+"/materias/materias.txt");
+                    agregarCabeceraAMaterias("archivos/"+terminoAcademico.toString()+"/materias/materias.txt");
                     try {
                         archivoMaterias.createNewFile();
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
                     //crea el archivo reportes.dt
-                    try(ObjectOutputStream file = new ObjectOutputStream(new FileOutputStream ("src/archivos/" + terminoAcademico + "/reportes.dat"))){
+                    try(ObjectOutputStream file = new ObjectOutputStream(new FileOutputStream ("archivos/" + terminoAcademico + "/reportes.dat"))){
                         file.writeObject(new ArrayList<Reporte>());
                     }catch(Exception e){
                         System.out.println("Cargar Reportes "+e);
                     }
-                    /*File archivoReporte = new File("src/archivos/"+terminoAcademico.toString()+"/reportes.dat");
-                    try {
-                        archivoReporte.createNewFile();
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                    }*/
-                    //crea el directorio preguntas
-                    File preguntas = new File("src/archivos/"+terminoAcademico.toString()+"/preguntas");
+
+                    File preguntas = new File("archivos/"+terminoAcademico.toString()+"/preguntas");
                     preguntas.mkdir();
                     try {
                         App.cargarArchivoFXML("administrarTerminosAcademicos");

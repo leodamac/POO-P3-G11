@@ -6,6 +6,7 @@ import academico.TerminoAcademico;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -239,7 +240,7 @@ public class Menu {
     }
     
     public static void cargarTerminosAcademicos(ArrayList<TerminoAcademico> terminosAcademicos){
-        File dir = new File("src/archivos");
+        File dir = new File("archivos");
         for(String termino: dir.list()){
             String[] t = termino.split("-");
             terminosAcademicos.add(new TerminoAcademico(t[0], t[1]));
@@ -247,7 +248,7 @@ public class Menu {
     }
     
     public static void cargarMaterias(TerminoAcademico terminoAcademico){
-        try( BufferedReader reader = new BufferedReader(new FileReader("src/archivos/" +  terminoAcademico + "/materias/materias.txt")) ){
+        try( BufferedReader reader = new BufferedReader(new FileReader("archivos/" +  terminoAcademico + "/materias/materias.txt", StandardCharsets.UTF_8)) ){
             String linea;
             String cabecera = reader.readLine();
             while((linea = reader.readLine())  != null){
@@ -255,9 +256,9 @@ public class Menu {
                 Materia materia = new Materia(datos[0], datos[1], convierteTxtAEntero(datos[2]));
                 
                 cargarPreguntas(materia, terminoAcademico);
-                File dir = new File("src/archivos/" + terminoAcademico + "/materias/" + materia.getCodigo());
+                File dir = new File("archivos/" + terminoAcademico + "/materias/" + materia.getCodigo());
                 for(String p: dir.list()){
-                    Paralelo paralelo = new Paralelo(materia, convierteTxtAEntero(p.split("\\.")[0]), "src/archivos/" +  terminoAcademico + "/materias/" + materia.getCodigo() + "/" + p);
+                    Paralelo paralelo = new Paralelo(materia, convierteTxtAEntero(p.split("\\.")[0]), "archivos/" +  terminoAcademico + "/materias/" + materia.getCodigo() + "/" + p);
                     cargarEstudiantes(paralelo,terminoAcademico);
                     materia.addParalelo(paralelo);
                 }
@@ -271,7 +272,7 @@ public class Menu {
     //Cargar lista de estudiantes de una ruta
     public static void cargarEstudiantes(Paralelo paralelo, String ruta){
         ArrayList estudiantes = new ArrayList();
-        try( BufferedReader reader = new BufferedReader(new FileReader(ruta)) ){
+        try( BufferedReader reader = new BufferedReader(new FileReader(ruta, StandardCharsets.UTF_8)) ){
             String linea;
             String cabecera = reader.readLine();
             while((linea = reader.readLine())  != null){
@@ -287,14 +288,14 @@ public class Menu {
     
     //Carga la lista de estudiantes de una ruta por defecto
     public static void cargarEstudiantes(Paralelo paralelo, TerminoAcademico terminoAcademico){
-        cargarEstudiantes(paralelo, "src/archivos/" +  terminoAcademico + "/materias/" + paralelo.getMateria().getCodigo() + "/" + paralelo.getNumero() + ".txt");
+        cargarEstudiantes(paralelo, "archivos/" +  terminoAcademico + "/materias/" + paralelo.getMateria().getCodigo() + "/" + paralelo.getNumero() + ".txt");
     }
     
     public static ArrayList<Pregunta> abrirArchivoPregunta(String ruta){
         ArrayList<Pregunta> preguntas = new ArrayList<>();
         String lineaP;
         String stringPreguntas = "";
-        try( BufferedReader reader = new BufferedReader(new FileReader(ruta)) ){
+        try( BufferedReader reader = new BufferedReader(new FileReader(ruta, StandardCharsets.UTF_8)) ){
             while((lineaP = reader.readLine())  != null){
                 stringPreguntas += lineaP + "\n";
             }
@@ -326,7 +327,7 @@ public class Menu {
     //Cargar las preguntas de la materia
     public static void cargarPreguntas(Materia materia, TerminoAcademico terminoAcademico){
         //System.out.println(System.getProperty("user.dir"));
-        ArrayList<Pregunta> preguntas = abrirArchivoPregunta( "src/archivos/" +  terminoAcademico + "/preguntas/" + materia.getCodigo() + ".txt");
+        ArrayList<Pregunta> preguntas = abrirArchivoPregunta( "archivos/" +  terminoAcademico + "/preguntas/" + materia.getCodigo() + ".txt");
         materia.addPreguntas(preguntas);
     }
         
