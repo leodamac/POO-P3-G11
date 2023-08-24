@@ -1,2 +1,2 @@
 codigo,nombre,nivel
-CCPG1043,Programación Orientada a Objetos,15
+CCPG1043,Programación Orientada a Objetos,10

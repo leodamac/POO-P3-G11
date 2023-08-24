@@ -11,6 +11,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -109,13 +111,22 @@ public class NuevoJuegoController{
     // Cambia a la ventana del juego
     @FXML
     private void switchToJuego(Event event) throws IOException {
-        int preguntasNivel = Integer.valueOf(nivelesTextField.getText());
-        try{
-            App.setPreguntas(materia.getPreguntas(), preguntasNivel);
-            App.cargarArchivoFXML("juego");
-        }catch(Exception e){
-            System.out.println(e);
-            Utilitario.mostrarPopUp("Error no hay suficientes preguntas por nivel", event);
+        int preguntasNivel = 0;
+        Alert alerta = new Alert(AlertType.ERROR);
+        alerta.setTitle("Número no ingresado");
+        alerta.setContentText("Ingrese números enteros en el campo de texto de niveles.");
+        if (Utilitario.isNumero(nivelesTextField.getText())){
+            preguntasNivel = Integer.valueOf(nivelesTextField.getText());
+            try{
+                App.setPreguntas(materia.getPreguntas(), preguntasNivel);
+                App.cargarArchivoFXML("juego");
+            }catch(Exception e){
+                System.out.println(e);
+                Utilitario.mostrarPopUp("Error no hay suficientes preguntas por nivel", event);
+            }
+        }else{
+            alerta.show();
         }
+        
     }    
 }

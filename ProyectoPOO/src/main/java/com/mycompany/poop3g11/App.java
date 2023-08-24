@@ -40,7 +40,7 @@ public class App extends Application {
     private static Materia materia;
     private static Paralelo paralelo;
     private static Reporte reporte;
-    private static String premio;
+    private static String premio = "NADA";
     private static int YEAR = 2023;
     private static ArrayList<Reporte> reportes;    
 
@@ -51,7 +51,7 @@ public class App extends Application {
         reportes = new ArrayList();     
         stage.getIcons().add(new Image(getClass().getResourceAsStream("/img/icono.png")));
         
-        scene = new Scene(loadFXML("main"), 640, 480);
+        scene = new Scene(loadFXML("main"), 960, 640);
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setScene(scene);
         cargarVentanaPrincipal();
@@ -95,14 +95,17 @@ public class App extends Application {
             stage.setMaximized(false);
             //stage.setFullScreen(false);
         }      
-    } 
+    }
+    
+    public static void desMaximizarVentana(Stage stage){
+            stage.setMaximized(false);
+    }
     
     private void cargarTerminosAcademicos(){
         terminosAcademicos = new ArrayList();
         Menu.cargarTerminosAcademicos(terminosAcademicos);
         Collections.sort(terminosAcademicos);
         terminoAcademico = terminosAcademicos.get(0);
-        
     }
        
     public static void setTerminoAcademico(TerminoAcademico nuevoTerminoAcademico){

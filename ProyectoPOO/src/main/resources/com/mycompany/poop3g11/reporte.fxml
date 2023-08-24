@@ -44,7 +44,7 @@
                   <Label text="Termino Academico" />
                </children>
             </GridPane>
-            <TableView fx:id="tableView" prefHeight="307.0" prefWidth="573.0" />
+            <TableView fx:id="tableView" VBox.vgrow="ALWAYS" />
          </children>
       </VBox>
    </center>

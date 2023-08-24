@@ -16,6 +16,7 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
@@ -110,8 +111,8 @@ public class JuegoController{
             tiempo += 60;
             timeline.stop();
             booleano.set(true);
+            finalizarJuego((Stage)(preguntasVBox.getScene()).getWindow());
             Utilitario.mostrarPopUp("PERDIÓ", (Stage)(((Node)tiempoLabel.getParent().getParent()).getScene()).getWindow());
-            finalizarJuego();
         }
             }));
         timeline.setCycleCount(Timeline.INDEFINITE);
@@ -184,20 +185,23 @@ public class JuegoController{
             }else{
                 Utilitario.mostrarPopUp("HA GANADO", event);
                 booleano.set(true);
-                generarReporte();
             }
         }else{
             Utilitario.mostrarPopUp("PERDIÓ", event);
             booleano.set(true);
             timeline.stop();
-            generarReporte();
         }
         finalizarJuego(event);
     }
     
-    private void finalizarJuego(){
+    private void finalizarJuego(Stage stage){
         if (booleano.get()){
             desabilitarTodosLosBotones();
+            if(indice >0){
+                Utilitario.mostrarPopUp(stage, generarReporte());
+            }else{
+                App.agregarReportes(generarReporte());
+            }
             try {
                 App.cargarArchivoFXML("nuevoJuego");
             } catch (IOException ex) {
@@ -209,7 +213,11 @@ public class JuegoController{
     private void finalizarJuego(Event event){
         if (booleano.get()){
             desabilitarTodosLosBotones();
-            Utilitario.mostrarPopUp(event);
+            if(indice >0){
+                Utilitario.mostrarPopUp(event, generarReporte());
+            }else{
+                App.agregarReportes(generarReporte());
+            }
             try {
                 App.cargarArchivoFXML("nuevoJuego");
             } catch (IOException ex) {
@@ -218,9 +226,10 @@ public class JuegoController{
         }
     }
     //genera el nuevo reporte y lo agrega a archivo reportes.dat
-    private void generarReporte(){
+    private Reporte generarReporte(){
         Reporte reporte = new Reporte(LocalDate.now().toString(), App.getJugador(), indice+1, tiempo, indice, comodines, App.getPremio(), App.getTerminoAcademico(), App.getMateria().getCodigo(), App.getParalelo());
-        App.agregarReportes(reporte);
+        return reporte;
+        
     }
     //Carga la pregunta que se mostrará en pantalla
     private void cargarPregunta(){

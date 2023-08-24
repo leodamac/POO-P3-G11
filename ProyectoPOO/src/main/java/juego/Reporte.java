@@ -75,6 +75,10 @@ public class Reporte implements Comparable<Reporte>, Serializable{
         this.fecha = fecha;
     }
     
+    public void setPremio(String premio){
+        this.premio = premio;
+    }
+    
     
     @Override
     /*Fecha del juego	
