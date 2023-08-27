@@ -46,7 +46,7 @@
          <font>
             <Font size="14.0" />
          </font></Label>
-      <TextField fx:id="numeroParaleloiField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <TextField fx:id="numeroParalelotextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
       <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="20.0" prefWidth="300.0" text="Materia" GridPane.rowIndex="1">
          <font>
             <Font size="14.0" />
