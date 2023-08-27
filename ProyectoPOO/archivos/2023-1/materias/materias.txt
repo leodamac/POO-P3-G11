@@ -1,3 +1,2 @@
 codigo,nombre,nivel
-CCPG1043,Programación Orientada a Objetos,15
-MATH1570,Matematicas,10
+CCPG1043,Programación Orientada a Objetos,10

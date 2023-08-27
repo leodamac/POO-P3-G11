@@ -72,6 +72,8 @@ public class MainController {
     
     //Se obtiene la posicion del Mouse
     private void obtenerPosicionMouse(MouseEvent e){
+        Stage s = (Stage) ((Node) e.getSource()).getScene().getWindow();
+        App.desMaximizarVentana(s);
         // Se obtiene la ventana actual
         Stage stage = (Stage) anchorPane.getScene ().getWindow ();
         // Se guarda la diferencia entre la posición de la ventana y la del ratón

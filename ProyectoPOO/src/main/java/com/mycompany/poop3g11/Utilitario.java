@@ -11,6 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import juego.Reporte;
 
 /**
  *
@@ -25,8 +26,8 @@ public class Utilitario {
         return cadena.matches("-?\\d+");
     }
     
-    public static void mostrarPopUp(Event event){
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    public static void mostrarPopUp(Stage stage, Reporte reporte){
+        //Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         // crear un nuevo Stage para el pop up
         Stage popUp = new Stage();
         popUp.initStyle(StageStyle.TRANSPARENT);
@@ -45,6 +46,10 @@ public class Utilitario {
             // cerrar el pop up
             popUp.close();
             App.setPremio(textLabel.getText());
+            reporte.setPremio(App.getPremio());
+            App.agregarReportes(reporte);
+            App.setPremio("NADA");
+            
         });
         // crear un VBox para organizar los controles del pop up
         VBox vbox = new VBox(10);
@@ -56,6 +61,13 @@ public class Utilitario {
         // mostrar el pop up
         popUp.show();
     }
+    
+    public static void mostrarPopUp(Event event, Reporte reporte){
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        // crear un nuevo Stage para el pop up
+        mostrarPopUp(stage, reporte);
+    }
+    
     
     public static void mostrarPopUp(String mensaje, Stage stage){
         // crear un nuevo Stage para el pop up

@@ -141,7 +141,6 @@ B) Java proporciona un manejo de excepciones para capturar y manejar estos error
 C) Las excepciones se pueden clasificar en excepciones comprobadas y excepciones no comprobadas.
 D) Todas las anteriores.
 
-separacion
 Pregunta: ¿Qué es un interface en Java?
 Respuestas:
 A) Una especificación de métodos que una clase debe implementar.
@@ -285,7 +284,6 @@ B) Las anotaciones en Java son comentarios que se utilizan para documentar el c�
 C) Las anotaciones en Java son declaraciones condicionales que afectan el flujo de ejecución del programa.
 D) Las anotaciones en Java se utilizan para encapsular bloques de código y reutilizarlos en diferentes partes del programa.
 
-separacion
 Pregunta: ¿Cuál de las siguientes afirmaciones sobre las interfaces funcionales en Java 8 y posteriores es verdadera?
 Respuestas:
 A) Las interfaces funcionales son interfaces que pueden tener un único método abstracto.
@@ -343,7 +341,6 @@ B) El manejo de hilos en Java se refiere al manejo de excepciones durante la eje
 C) El manejo de hilos en Java se refiere a la capacidad de una clase para heredar de múltiples superclases.
 D) El manejo de hilos en Java se refiere a la capacidad de una clase para tener múltiples constructores.
 
-separacion
 Pregunta: ¿Cuál de las siguientes afirmaciones sobre las expresiones regulares en Java es verdadera?
 Respuestas:
 A) Las expresiones regulares en Java son patrones utilizados para buscar y manipular texto.
@@ -387,7 +384,6 @@ B) Los modificadores de acceso en Java son public, private y protected.
 C) Los modificadores de acceso en Java son static, final y abstract.
 D) Los modificadores de acceso en Java son protected, static y final.
 
-separacion
 Pregunta: ¿Cuál de las siguientes afirmaciones sobre los paquetes en Java es verdadera?
 Respuestas:
 A) Los paquetes en Java se utilizan para organizar clases y evitar conflictos de nombres.
@@ -431,7 +427,6 @@ B) Una clase interna en Java no puede acceder a los miembros privados de la clas
 C) Una clase interna en Java puede ser instanciada y utilizada directamente.
 D) Una clase interna en Java no puede tener atributos.
 
-separacion
 Pregunta: ¿Cuál de las siguientes afirmaciones sobre la programación concurrente en Java es verdadera?
 Respuestas:
 A) La programación concurrente en Java se refiere a la ejecución simultánea de múltiples hilos de ejecución en un programa.
