@@ -1,6 +1,7 @@
 package materiasParalelosControllers;
 
 import academico.Materia;
+import academico.Paralelo;
 import academico.TerminoAcademico;
 import personas.Estudiante;
 import com.mycompany.poop3g11.App;
@@ -61,8 +62,7 @@ public class agregarParaleloController {
 
         // Verificar si se seleccionó un archivo
         if (file != null) {
-            rutaArchivotextField.setText(file.toString());
-            //cargarArchivoEstudiantes(file.getPath(), materia); // Llama a la función para cargar estudiantes 
+            rutaArchivotextField.setText(file.toString()); 
         }
     }
     
@@ -75,8 +75,7 @@ public class agregarParaleloController {
     private void agregarButtonAccion(Event event){
         String ruta = rutaArchivotextField.getText();
         materia = seleccionarMateriaComboBox.getValue();
-       
-        
+    
         //verifica si el campo el campo Paralelo es un numero
         if(!Utilitario.isNumero(numeroParalelotextField.getText())){
             //muestra si el pop up es error
@@ -96,7 +95,9 @@ public class agregarParaleloController {
             String carpetaNewParalelo = numeroParalelotextField.getText()+".txt";
             String rutaFinal = rutaGuardar+"/"+carpetaNewParalelo;
             File carpetaMateria = new File(rutaFinal);
-            System.out.println(rutaFinal);
+            Paralelo paralel = new Paralelo(materia,paralelo,rutaFinal );
+            materia.addParalelo(paralel);
+            
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(rutaFinal))){
     
                 try (BufferedReader br = new BufferedReader(new FileReader(rutaArchivotextField.getText()))){

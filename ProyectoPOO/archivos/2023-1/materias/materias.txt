@@ -1,2 +1,4 @@
 codigo,nombre,nivel
 CCPG1043,Programación Orientada a Objetos,10
+1000,mat,1
+1200,mat1,1

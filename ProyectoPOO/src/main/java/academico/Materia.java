@@ -118,4 +118,8 @@ public class Materia implements Serializable{
             return this.nombre.equals(otro.getNombre());
         }
     }
+
+    public void addParalelo(int paralelo) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
