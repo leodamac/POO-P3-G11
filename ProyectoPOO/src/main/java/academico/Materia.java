@@ -1,6 +1,10 @@
 package academico;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import juego.Pregunta;
 
@@ -122,4 +126,23 @@ public class Materia implements Serializable{
     public void addParalelo(int paralelo) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+    public boolean isEmpty() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
+     public void guardarPreguntasEnArchivo(String rutaArchivo) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(rutaArchivo, StandardCharsets.UTF_8))) {
+            for (ArrayList<Pregunta> nivelPreguntas : preguntas) {
+                for (Pregunta pregunta : nivelPreguntas) {
+                    writer.write(pregunta.toString()); // Supongo que tienes un método toString en la clase Pregunta
+                    writer.newLine();
+                    writer.write("separacion"); // Separador entre preguntas (ajusta según tus necesidades)
+                    writer.newLine();
+                }
+            }
+        } catch (IOException e) {
+        }
+    }
+    
 }

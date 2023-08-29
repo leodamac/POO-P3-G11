@@ -1,10 +1,14 @@
 package administrarPreguntasControllers;
 
 import academico.Materia;
+import academico.Paralelo;
+import academico.TerminoAcademico;
 import com.mycompany.poop3g11.App;
 import com.mycompany.poop3g11.Utilitario;
+import com.mycompany.proyectopoo.Menu;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -45,10 +49,11 @@ public class agregarPreguntaController {
     
     private void initialize(){
         cargarMaterias();
-        seleccionarMateriaComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            materia = seleccionarMateriaComboBox.getValue();
-        });
+        
+        
+        
     }
+   
     
     @FXML
     private void switchToAdministrarPreguntas() throws IOException {
@@ -64,33 +69,47 @@ public class agregarPreguntaController {
     @FXML
     private void clicAgregar(ActionEvent event) {
         
-    String materiaCombo = seleccionarMateriaComboBox.getValue();
+    
     String pregunta = preguntaTextField.getText();
     String respuestaCorrecta = respuestaCorrectaFieldText.getText();
     String respuestaIncorrecta1 = respuestaIncorrecta1FieldText.getText();
     String respuestaIncorrecta2 = respuestaIncorrecta2FieldText.getText();
     String respuestaIncorrecta3 = respuestaIncorrecta3FieldText.getText();
-    String nivel = nivelPregunta.getText();
+     int nivel = Integer.parseInt(nivelPregunta.getText());
 
     // Validacion
-    if (materiaCombo.isEmpty() || pregunta.isEmpty() || respuestaCorrecta.isEmpty() ||
+    if ( pregunta.isEmpty() || respuestaCorrecta.isEmpty() ||
         respuestaIncorrecta1.isEmpty() || respuestaIncorrecta2.isEmpty() ||
-        respuestaIncorrecta3.isEmpty() || nivel.isEmpty()) {
+        respuestaIncorrecta3.isEmpty() ) {
+        
         
         Utilitario.mostrarPopUp("¡ERROR!\nTodos los campos son obligatorios", event);
-        
+       
         return; 
-    }
-
- 
-    
+    } 
     Utilitario.mostrarPopUp("Pregunta agregada con éxito", event);
 
+    Pregunta preguntaN = new Pregunta(pregunta, respuestaCorrecta, respuestaIncorrecta1, respuestaIncorrecta2, respuestaIncorrecta3, nivel);
+    materia.addPregunta(preguntaN);
+    
+    
+    for (TerminoAcademico termino : App.getTerminosAcademicos()) {
+            for (Materia materiaN : termino.getMaterias()) {
+                for (Paralelo paralelo : materiaN.getParalelos()) {
+                    // Generar la ruta del archivo para guardar las preguntas
+                    String rutaArchivo = "archivos/" + termino + "/materias/" + materiaN.getCodigo() + "/" + paralelo.getNumero() + ".txt";
+
+                    // Guardar las preguntas actualizadas en el archivo
+                    materiaN.guardarPreguntasEnArchivo(rutaArchivo);
+                }
+            }
+        }
     
     limpiarCampos();
         
     }
     
+  
     private void limpiarCampos() {
     seleccionarMateriaComboBox.getSelectionModel().clearSelection();
     preguntaTextField.clear();
@@ -100,6 +119,8 @@ public class agregarPreguntaController {
     respuestaIncorrecta3FieldText.clear();
     nivelPregunta.clear();
 }
+    
+    
 }
 
 
