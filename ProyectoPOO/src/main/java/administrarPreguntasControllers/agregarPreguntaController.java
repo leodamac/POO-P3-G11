@@ -50,6 +50,11 @@ public class agregarPreguntaController {
     private void initialize(){
         cargarMaterias();
         
+        seleccionarMateriaComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            materia = seleccionarMateriaComboBox.getValue();
+            
+        });
+        
         
         
     }

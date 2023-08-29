@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -13,9 +19,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="borderPane" nodeOrientation="LEFT_TO_RIGHT" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="administrarPreguntasControllers.eliminarPreguntaController">
+<BorderPane fx:id="borderPane" nodeOrientation="LEFT_TO_RIGHT" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="administrarPreguntasControllers.eliminarPreguntaController">
    <top>
-      <Label text="Eliminar Pregunta" BorderPane.alignment="CENTER" styleClass="titulo">
+      <Label styleClass="titulo" text="Eliminar Pregunta" BorderPane.alignment="CENTER">
          <font>
             <Font name="System Bold" size="15.0" />
          </font></Label>
@@ -42,7 +48,7 @@
                <font>
                   <Font size="14.0" />
                </font></Label>
-            <Label styleClass="respuesta-correcta" alignment="TOP_RIGHT" contentDisplay="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefWidth="250.0" text="Respuesta Correcta" textFill="#49b963" GridPane.rowIndex="2">
+            <Label alignment="TOP_RIGHT" contentDisplay="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefWidth="250.0" styleClass="respuesta-correcta" text="Respuesta Correcta" textFill="#49b963" GridPane.rowIndex="2">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font></Label>
@@ -84,7 +90,7 @@
             <ComboBox fx:id="seleccionarMateriaComboBox" prefWidth="250.0" GridPane.columnIndex="1" />
             <HBox prefHeight="100.0" prefWidth="200.0" spacing="200.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
                <children>
-                  <Button fx:id="eliminarButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="125.0" text="Eliminar">
+                  <Button fx:id="eliminarButton" mnemonicParsing="false" onAction="#clickEliminar" prefHeight="25.0" prefWidth="125.0" text="Eliminar">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Button>

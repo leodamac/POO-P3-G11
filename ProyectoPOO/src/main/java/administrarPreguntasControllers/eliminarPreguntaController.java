@@ -6,10 +6,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.BorderPane;
 import juego.Pregunta;
 
 public class eliminarPreguntaController {
@@ -20,8 +23,15 @@ public class eliminarPreguntaController {
     Materia materia;
     Pregunta pregunta;
     ArrayList<Pregunta> preguntas;
-    
     @FXML
+    private BorderPane borderPane;
+    @FXML
+    private Label seleccionarMateriaLabel;
+    @FXML
+    private Button eliminarButton;
+    @FXML
+    private Button salirButton;
+    
     private void initialize(){
         cargarMaterias();
         
@@ -49,6 +59,13 @@ public class eliminarPreguntaController {
         ObservableList<Materia> observableList = FXCollections.observableArrayList(materias);
         seleccionarMateriaComboBox.setItems(observableList);
     }
+    private void eliminarPregunta() {
+        if (pregunta != null) {
+            preguntas.remove(pregunta); // Elimina la pregunta de la lista
+            cargarPreguntas(); // Actualiza la lista visual de preguntas
+            
+        }
+    }
     
     private void cargarPreguntas(){
         preguntas = new ArrayList();
@@ -57,5 +74,10 @@ public class eliminarPreguntaController {
         }
         ObservableList<Pregunta> observableList = FXCollections.observableArrayList(preguntas);
         preguntasListView.setItems(observableList);
+    }
+
+    @FXML
+    private void clickEliminar(ActionEvent event) {
+        eliminarPregunta();
     }
 }
