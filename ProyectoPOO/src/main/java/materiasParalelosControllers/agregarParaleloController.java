@@ -32,8 +32,9 @@ public class agregarParaleloController {
     @FXML ComboBox<Materia> seleccionarMateriaComboBox;
     @FXML TextField numeroParalelotextField, rutaArchivotextField;
     @FXML Button agregarButton;
-
     @FXML
+    private Button elegirArchivoButton;
+
     private void initialize(){
         cargarMaterias();
         seleccionarMateriaComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -71,7 +72,6 @@ public class agregarParaleloController {
         ObservableList<Materia> observableList = FXCollections.observableArrayList(materias);
         seleccionarMateriaComboBox.setItems(observableList);
     }
-    @FXML
     private void agregarButtonAccion(Event event){
         String ruta = rutaArchivotextField.getText();
         materia = seleccionarMateriaComboBox.getValue();
@@ -86,7 +86,6 @@ public class agregarParaleloController {
             Utilitario.mostrarPopUp("Paralelo registrado con ÉXITO", event);
         }
     }
-    @FXML
     private void cargarArchivoEstudiantes(){
         //String rutaArchivo = rutaArchivotextField.getText();
         int paralelo = Integer.parseInt(numeroParalelotextField.getText());
